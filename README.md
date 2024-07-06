@@ -1,3 +1,3 @@
 # **Medallo Culture**
 ## **Descripcion of the problem**
-hola
+In the city of Medellín tourism has grown exponentially in recent years.
