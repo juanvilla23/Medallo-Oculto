@@ -1,0 +1,21 @@
+version: "3.1"
+
+services:
+
+  db:
+    restart: always
+    image: postgres
+    container_name: MO-postgres
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_PORT=5432
+    ports:
+      - "5432:5432"
+    volumes:
+      - MO_data:/var/lib/postgresql/data/
+      - ./Resources/scripts/:/data/
+
+volumes:
+  MO_data:
