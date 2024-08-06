@@ -1,0 +1,61 @@
+<!-- map_template.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa con Folium y Leaflet.js</title>
+    <!-- Incluir Leaflet.js y Leaflet.css -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body>
+    <h1>Mapa Interactivo con Folium y Leaflet.js</h1>
+    <!-- Contenedor para el mapa -->
+    <div id="map" style="height: 600px;"></div>
+
+    <script>
+        // Inicializar el mapa con Leaflet.js
+        var map = L.map('map').setView([45.5236, -122.6750], 13);
+
+        // Agregar una capa de mapa base (OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Agregar los marcadores desde Django
+        var markers = {{ markers|safe }};
+        markers.forEach(function(marker) {
+            L.marker([marker.lat, marker.lng])
+                .bindPopup(marker.popup)
+                .addTo(map);
+        });
+
+        // Función para agregar un marcador
+        function addMarker(lat, lng, popup) {
+            var newMarker = L.marker([lat, lng])
+                .bindPopup(popup)
+                .addTo(map);
+        }
+
+        // Función para eliminar un marcador (requiere una referencia al marcador)
+        function removeMarker(marker) {
+            map.removeLayer(marker);
+        }
+
+        // Ejemplo de agregar un marcador
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('addMarkerBtn').addEventListener('click', function() {
+                addMarker(45.521, -122.675, 'Nuevo Marcador');
+            });
+        });
+
+        // Ejemplo de quitar un marcador
+        // (Necesitarías una manera de seleccionar un marcador específico para eliminar)
+    </script>
+
+    <!-- Botón de ejemplo para agregar un marcador -->
+    <button id="addMarkerBtn">Agregar Marcador</button>
+</body>
+</html>
+
