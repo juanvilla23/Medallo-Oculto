@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<div id="map" style="height: 400px;"></div>
+
+
+<script>
+  // Inicializa el mapa
+  var map = L.map('map').setView([51.505, -0.09], 13);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: 'MedalloOculto'
+  }).addTo(map);
+
+  // Cargar marcadores desde la API
+  fetch('/api/locations/')
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(location => {
+        var marker = L.marker([location.latitude, location.longitude]).addTo(map)
+          .bindPopup(`<b>${location.name}</b><br>Category: ${location.category}`);
+      });
+    });
+
+  // Añadir filtro de categorías
+  var categoryFilter = document.getElementById('category-filter');
+
+  categoryFilter.addEventListener('change', function () {
+    var selectedCategory = categoryFilter.value;
+
+    // Limpiar marcadores
+    map.eachLayer(function (layer) {
+      if (layer instanceof L.Marker) {
+        map.removeLayer(layer);
+      }
+    });
+
+    // Volver a cargar marcadores con el filtro
+    fetch(`/api/locations/?category=${selectedCategory}`)
+      .then(response => response.json())
+      .then(data => {
+        data.forEach(location => {
+          var marker = L.marker([location.latitude, location.longitude]).addTo(map)
+            .bindPopup(`<b>${location.name}</b><br>Category: ${location.category}`);
+        });
+      });
+  });
+</script>
+
+<select id="category-filter">
+  <option value="">Todas</option>
+  <option value="restaurant">Restaurantes</option>
+  <option value="hotel">Hoteles</option>
+  <option value="shop">Tiendas</option>
+</select>
+
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+
+<script>
+  // Añadir la ruta entre dos puntos
+  L.Routing.control({
+    waypoints: [
+      L.latLng(51.505, -0.09),
+      L.latLng(51.515, -0.1)
+    ],
+    routeWhileDragging: true
+  }).addTo(map);
+</script>

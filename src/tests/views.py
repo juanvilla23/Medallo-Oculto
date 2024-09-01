@@ -1,21 +1,13 @@
 # views.py
-import folium
 from django.shortcuts import render
+from django.http import HttpResponse
+from rest_framework import viewsets
+from .models import Location
+from .serializers import LocationSerializer
 
-def map_view(request):
-    # Crear un mapa de Folium
-    m = folium.Map(location=[45.5236, -122.6750], zoom_start=13)
+class LocationViewSet(viewsets.ModelViewSet):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
 
-    # Generar el HTML del mapa
-    map_html = m._repr_html_()
-
-    # Coordenadas de ejemplo para los marcadores
-    markers = [
-        {"lat": 45.5236, "lng": -122.6750, "popup": "Portland, OR"},
-        {"lat": 45.528, "lng": -122.680, "popup": "Another Place"}
-    ]
-
-    # Pasar el HTML del mapa y las coordenadas de los marcadores a la plantilla
-    context = {'map_html': map_html, 'markers': markers}
-    return render(request, './map_template.html', context)
-
+def vista(request):
+    return render(request, 'vista.html')
