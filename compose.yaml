@@ -15,7 +15,17 @@ services:
       - "5432:5432"
     volumes:
       - MO_data:/var/lib/postgresql/data/
-      - ./Resources/scripts/:/data/
+      - ./resources/scripts/:/data/
+
+  router_machine:
+    restart: always
+    image: osrm/osrm-backend
+    container_name: MO-router
+    command: osrm-routed --algorithm mld /data/colombia-latest.osrm
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./resources/data/:/data/
 
 volumes:
   MO_data:
