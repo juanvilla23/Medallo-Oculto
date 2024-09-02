@@ -139,9 +139,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'routes/js'), os.path.join(BASE_DIR, 'routes/css'), os.path.join(BASE_DIR, 'routes/lib/contextmenu'), \
-                    os.path.join(BASE_DIR, 'routes/lib/easybutton'), os.path.join(BASE_DIR, 'routes/lib/leaflet')]
 
+STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'routes/images'), os.path.join(BASE_DIR, 'routes/js'), os.path.join(BASE_DIR, 'routes/css'), os.path.join(BASE_DIR, 'routes/external/contextmenu'), \
+                    os.path.join(BASE_DIR, 'routes/external/easybutton'), os.path.join(BASE_DIR, 'routes/external/clickmenu')]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

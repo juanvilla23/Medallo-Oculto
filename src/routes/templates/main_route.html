@@ -10,118 +10,39 @@
 
         <!-- Leaflet CSS -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"></link>
         <link rel="stylesheet" href="{% static 'main_route_style.css' %}">
         <link rel="stylesheet" href="{% static 'leaflet.menu.css' %}">
         <link rel="stylesheet" href="{% static 'easy-button.css' %}">
+        <link rel="stylesheet" href="{% static 'leaflet.contextmenu.css' %}">
 
 
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
         <script src="{% static 'leaflet.menu.js' %}"></script>
         <script src="{% static 'easy-button.js' %}"></script>
-        <!-- <script src="{% static 'leaflet.js' %}"></script> -->
-        
+        <script src="{% static 'leaflet.contextmenu.js' %}"></script>
     </head>
     <body>
-        <!-- style="position: absolute;width: 100%; height: 100%; -->
-        <div id="map"></div>  
-        <script type="text/javascript">
-            // var data = [[35.7259105, 139.6097204],
-            //             [35.7255323, 139.611673],
-            //             [35.7255065, 139.6120389],
-            //             [35.7250437, 139.6129669],
-            //             [35.7249277, 139.614122],
-            //             [35.7245525, 139.614945],
-            //             [35.7249356, 139.6154467],
-            //             [35.7239286, 139.6245468],
-            //             [35.7237912, 139.6245741],
-            //             [35.7235872, 139.6252464],
-            //             [35.7232501, 139.6249901],
-            //             [35.7220263, 139.6254228],
-            //             [35.7231554, 139.624722],
-            //             [35.7230812, 139.625226],
-            //             [35.7231343, 139.6247067],];
-    
-            var openstreetAttr = '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors';
-                osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{attribution}';
-            var markersGroup = new L.FeatureGroup();
-    
-            var map = L.map('map', {
-                center: [35.7231343, 139.6247067],
-                zoom: 15,
-                zoomControl: false,
-            });
-            var openstreetmap = L.tileLayer(osmUrl,{attribution: openstreetAttr}).addTo(map);
-            L.control.zoom({position : 'bottomleft'}).addTo(map);
-    
-            // for (var i = 0; i < data.length; i++) {
-            //     var marker = L.circle(data[i],38,{color: '#d94e5d'}).addTo(markersGroup);
-            //     markersGroup.addLayer(marker);
-            // }
-            // map.addLayer(markersGroup);
-            // map.fitBounds(markersGroup.getBounds());
-    
-            var home_button = L.easyButton({
-                states:[{
-                    stateName: 'set-view-to-newest',
-                    icon: 'fa fa-home',
-                    title: 'Set View to Newest',
-                    onClick: function (btn, map) {
-                        map.setView([35.7231343, 139.6247067], 13, {animate: false});
-                    }
-                }],
-                id: 'set-view-to-newest'
-            });
-            home_button.addTo(map);
-    
-            var menu = L.leafletMenu(map, {
-                    items: {
-                        GPSPath: {
-                            // href: '#',
-                            onClick: function () {
-                                return L.polyline(data,{color: '#50a3ba',opacity: 0.7,smoothFactor: 6}).addTo(map);
-                            },
-                        },
-                        AlertCenterLocation: {
-                            onClick: function () {
-                                alert(map.getCenter().toString());
-                            },
-                        },
-                        RedirectToGoogle: {
-                            href: '//www.google.com',
-                        }
-                    }
-            });
-            var menuButton = L.easyButton({
-                states: [{
-                    stateName: 'show-menu',
-                    icon: 'fa fa-tasks',
-                    title: 'Show Menu',
-                    onClick: function (btn, map) {
-                        menu.options.button = btn;
-                        menu.show();
-                        btn.state('hide-menu');
-                    }
-                },{
-                    stateName: 'hide-menu',
-                    icon: 'fa fa-tasks',
-                    title: 'Hide Menu',
-                    onClick: function (btn, map) {
-                        menu.hide();
-                        btn.state('show-menu');
-                    }
-                }],
-                id: 'styles-menu',
-            });
-            menuButton.addTo(map);
-    
-            </script>
+        <!-- style="position: absolute;width: 100%; height: 100%;  <div id="map"></div>  -->
+        <div id="mainContainer">
+            <div id="mapDiv">
+              <div id="map">
+                <div id="header">
+                    <div id="search-bar">
+                        <input id="input_search_bar" type="text" placeholder="Search, e.j. Toque de salsa en vivo">
+                        <button id="search-button"><i class="fa fa-search"></i></button>
+                    </div>
+                    <div id="menu-buttons">
+                        <button id="menu-button"><i class="fa fa-bars"></i></button>
+                        <button id="login-button">Registrarse</button>
+                        <button id="sign-in-button">Iniciar Sesión</button>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
 
-        <!-- Leaflet JS -->
-        <!-- <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script> -->
-        <!-- Own JS -->
-        <!-- <script src="{% static 'main_route_logic.js' %}"></script> -->
-        <!-- Menu JS -->
-        <!-- <script src="{% static 'leaflet.js' %}" async defer></script> -->
+        <script type="module" src="{% static 'main_route_logic.js' %}"></script>
     </body>
 </html>

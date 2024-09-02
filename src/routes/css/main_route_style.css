@@ -1,10 +1,146 @@
-/* html, body {
+/* Establece la altura completa de la página y elimina el margen y padding por defecto */
+html, body {
     height: 100%;
     margin: 0;
-} */
-
-#map {
-    position: absolute;
-    height: 100%;
+    padding: 0;
+}
+  
+/* Contenedor principal que ocupa toda la pantalla y organiza el contenido en un layout flex */
+#mainContainer {
+    position: relative;
     width: 100%;
+    height: 100%;
+    display: flex;
+}
+  
+/* Configuración de la barra lateral (si se utiliza) con scroll horizontal oculto y borde izquierdo */
+#bars {
+    z-index: 0;
+    width: 500px;
+    overflow-x: auto;
+    border-left: 1px solid rgb(214, 49, 65);
+}
+  
+/* Oculta la barra de desplazamiento en navegadores Webkit */
+::-webkit-scrollbar {
+    display: none;
+}
+  
+/* Configura la sección del mapa para que ocupe todo el espacio disponible */
+#mapDiv {
+    flex: 1;
+}
+
+/* Establece el mapa para ocupar todo el espacio del contenedor #mapDiv */
+#map {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+  
+/* Media query para pantallas pequeñas: ajusta el layout de los contenedores a una columna */
+@media screen and (max-width: 500px) { 
+    #mainContainer {
+        flex-direction: column; 
+    }
+    #mapDiv,
+    #bars {
+        flex: 1;
+    }
+}
+
+/* Configuración del encabezado que contiene la barra de búsqueda y botones */
+#header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 70px; /* Aumenta la altura del contenedor */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent; /* Fondo transparente */
+    padding: 0 20px;
+    z-index: 1000;
+}
+
+/* Estilo de la barra de búsqueda dentro del encabezado */
+#search-bar {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+/* Estilo del input de búsqueda, con bordes redondeados, sombra y tamaño de fuente ajustado */
+#search-bar input {
+    width: 300px;
+    height: 40px; /* Altura ajustada */
+    padding: 5px 20px; /* Padding ajustado */
+    border: none;
+    border-radius: 20px; /* Bordes redondeados */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra suave */
+    font-size: 16px; /* Aumenta el tamaño de la fuente */
+}
+
+/* Botón de búsqueda que aparece junto al input, con forma redondeada */
+#search-button {
+    background-color: white;
+    border: none;
+    padding: 10px 15px; /* Ajusta el padding */
+    border-radius: 50%; /* Botón redondeado */
+    margin-left: -45px; /* Superposición sobre el input */
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra suave */
+}
+
+/* Contenedor de los botones del menú, alineados horizontalmente */
+#menu-buttons {
+    display: flex;
+    align-items: center;
+}
+
+#sign-in-button {
+    background-color: #007bff;
+    border: none;
+    padding: 8px 30px; /* Reduce la altura y aumenta la longitud */
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    margin-right: 30px; /* Aumenta el espacio entre botones */
+    font-size: 16px; /* Ajusta el tamaño de la fuente */
+    height: 40px; /* Ajusta la altura total */
+    min-width: 100px; /* Define una anchura mínima para hacerlos más largos */
+}
+
+#menu-button {
+    background-color: #007bff;
+    border: none;
+    padding: 8px; /* Ajusta el padding para que sea igual en todos los lados */
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    margin-right: 15px; /* Aumenta el espacio entre botones */
+    font-size: 16px; /* Ajusta el tamaño de la fuente */
+    width: 40px; /* Define la anchura del botón */
+    height: 40px; /* Define la altura del botón para que sea un cuadrado */
+    display: flex; /* Centra el contenido */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    min-width: 40px; /* Asegura que el botón sea cuadrado sin importar el contenido */
+}
+
+#login-button{
+    background-color: #007bff;
+    border: none;
+    padding: 8px 30px; /* Reduce la altura y aumenta la longitud */
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    margin-right: 15px; /* Aumenta el espacio entre botones */
+    font-size: 16px; /* Ajusta el tamaño de la fuente */
+    height: 40px; /* Ajusta la altura total */
+    min-width: 100px; /* Define una anchura mínima para hacerlos más largos */
+}
+
+#menu-button:hover, #login-button:hover, #sign-in-button:hover {
+    opacity: 0.8;
 }
