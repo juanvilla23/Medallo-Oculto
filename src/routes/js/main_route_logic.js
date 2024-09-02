@@ -11,13 +11,15 @@ var bounds = [
 window.onload = function() {
     
     var map = L.map('map', {
-        center: [6.2442, -75.5812],
-        zoom: 13,
-        maxBounds: bounds,
+        center: [6.2442, -75.5812], // Centro del mapa
+        zoom: 13, // Zoom inicial
+        minZoom: 10, // Zoom out mínimo
+        maxZoom: 18, // Zoom in máximo
+        maxBounds: bounds, // Limita el área navegable al Valle de Aburrá
         zoomControl: false,
-        attributionControl: false, // Desactivar el control de atribución predeterminado
+        attributionControl: false, // Desactiva el control de atribución predeterminado
 
-        contextmenu: true, // Activar el menú contextual que se activa con click derecho
+        contextmenu: true, // Activa el menú contextual que se activa con click derecho
         contextmenuWidth: 140,
         contextmenuItems: [{
             text: 'Mostrar coordenadas',
@@ -52,7 +54,11 @@ window.onload = function() {
         map.zoomOut();
     }
 
-    var openstreetmap = L.tileLayer(osmUrl, { attribution: openstreetAttr }).addTo(map);
+    var openstreetmap = L.tileLayer(osmUrl, { 
+        attribution: openstreetAttr,
+        minZoom: 10, // Asegura que la capa de mosaicos respete el zoom mínimo
+        maxZoom: 18  // Asegura que la capa de mosaicos respete el zoom máximo
+    }).addTo(map);
     
     L.control.attribution({ prefix: false }) // Elimina la atribución de Leaflet
         .addAttribution(openstreetAttr) // Agrega tu propia atribución
