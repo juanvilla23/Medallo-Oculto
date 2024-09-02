@@ -1,0 +1,2 @@
+export const ZOOM_IN_URL = 'https://raw.githubusercontent.com/aratcliffe/Leaflet.contextmenu/master/examples/images/zoom-in.png'
+export const ZOOM_OUT_URL = 'https://raw.githubusercontent.com/aratcliffe/Leaflet.contextmenu/master/examples/images/zoom-out.png'
