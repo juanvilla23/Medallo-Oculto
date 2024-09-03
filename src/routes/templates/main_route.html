@@ -35,6 +35,16 @@
                     </div>
                     <div id="menu-buttons">
                         <button id="menu-button"><i class="fa fa-bars"></i></button>
+                        <div id="route-options" class="dropdown-content">
+                            <a href="#" id="foot-route">
+                                <span class="selection-circle" id="foot-circle"></span>
+                                Peatonal
+                            </a>
+                            <a href="#" id="car-route">
+                                <span class="selection-circle" id="car-circle"></span>
+                                Vehicular
+                            </a>
+                        </div>
                         <button id="login-button">Registrarse</button>
                         <button id="sign-in-button">Iniciar Sesión</button>
                     </div>
@@ -43,6 +53,7 @@
             </div>
         </div>
 
+        <script src="{% static 'menu_button.js' %}"></script>
         <script type="module" src="{% static 'main_route_logic.js' %}"></script>
     </body>
 </html>

@@ -20,12 +20,22 @@ services:
   router_machine:
     restart: always
     image: osrm/osrm-backend
-    container_name: MO-router
+    container_name: MO-router-foot
     command: osrm-routed --algorithm mld /data/colombia-latest.osrm
     ports:
       - "5000:5000"
     volumes:
-      - ./resources/data/:/data/
+      - ./resources/data/foot_profile:/data/
+
+  router_machine2:
+    restart: always
+    image: osrm/osrm-backend
+    container_name: MO-router-car
+    command: osrm-routed --algorithm mld /data/colombia-latest.osrm
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./resources/data/car_profile:/data/
 
 volumes:
   MO_data:
