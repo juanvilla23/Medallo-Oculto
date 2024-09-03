@@ -73,7 +73,7 @@ window.onload = function() {
         minZoom: 8, // Asegura que la capa de mosaicos respete el zoom mínimo
         maxZoom: 18  // Asegura que la capa de mosaicos respete el zoom máximo
     }).addTo(map);
-    
+
     L.control.attribution({ prefix: false }) // Elimina la atribución de Leaflet
         .addAttribution(openstreetAttr) // Agrega tu propia atribución
         .addTo(map);
@@ -119,8 +119,7 @@ window.onload = function() {
     });
     remove_markers.addTo(map);
 
-
-    // Demostración de rutas y marcadores estaticos
+    // Demostración de rutas y marcadores estáticos
 
     // Coordenadas de los marcadores
     const startCoords = [6.269625, -75.566078]; // Coordenadas del punto de inicio
@@ -135,35 +134,37 @@ window.onload = function() {
         .bindPopup('Punto de Destino')
         .openPopup();
 
-    //Demostración de una ruta peatonal
+    // Demostración de una ruta peatonal
+    
     const osrmUrl23 = 'http://localhost:5000/route/v1/foot/-75.566078,6.269625;-75.573565,6.244998?overview=full&geometries=geojson';
 
-      fetch(osrmUrl23)
+    fetch(osrmUrl23)
         .then(response => response.json())
         .then(data => {
-          const route = data.routes[0].geometry;
-          L.geoJSON(route, {
-            style: {
-              color: 'green',
-              weight: 4
-            }
-          }).addTo(map);
+            const route = data.routes[0].geometry;
+            L.geoJSON(route, {
+                style: {
+                    color: 'green',
+                    weight: 4
+                }
+            }).addTo(map);
         })
         .catch(err => console.error(err));
 
-    //Demostración de una ruta en carro
+    // Demostración de una ruta en carro
     const osrmUrl232 = 'http://localhost:5001/route/v1/driving/-75.566078,6.269625;-75.573565,6.244998?overview=full&geometries=geojson';
 
     fetch(osrmUrl232)
         .then(response => response.json())
         .then(data => {
-        const route = data.routes[0].geometry;
-        L.geoJSON(route, {
-            style: {
-            color: 'blue',
-            weight: 4
-            }
-        }).addTo(map);
+            const route = data.routes[0].geometry;
+            L.geoJSON(route, {
+                style: {
+                    color: 'blue',
+                    weight: 4
+                }
+            }).addTo(map);
         })
         .catch(err => console.error(err));
+
 };
