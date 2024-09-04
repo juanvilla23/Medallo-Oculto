@@ -1,0 +1,2 @@
+docker exec -it MO-postgres bash
+psql -U Julian -d MO-Database -f /data/InsertData1.sql
