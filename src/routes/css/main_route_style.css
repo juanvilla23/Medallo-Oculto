@@ -72,7 +72,7 @@ html, body {
 
 /* Estilo del input de búsqueda, con bordes redondeados, sombra y tamaño de fuente ajustado */
 #search-bar input {
-    width: 300px;
+    width: 400px;
     height: 40px; /* Altura ajustada */
     padding: 5px 20px; /* Padding ajustado */
     border: none;
@@ -261,22 +261,51 @@ html, body {
 }
 
 #result-container {
-    display: none; /* Ocultar por defecto */
+    display: none; /* Keep it hidden by default */
     position: absolute;
-    top: 60px; /* Ajusta según el diseño */
+    top: 60px; /* Adjust based on your design */
     left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    width: 300px;
+    background-color: rgba(0, 0, 0, 0.1); /* Lighten the background */
+    padding: 5px; /* Reduce padding for a cleaner appearance */
+    width: 450px; /* Make it narrower to resemble buttons */
     z-index: 1000;
+    border-radius: 10px; /* Rounded corners */
+    margin-left: 20px;
 }
 
 .result-card {
     background-color: white;
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    width: 100%;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Cambiar a columna para alinear todo verticalmente */
 }
 
+.result-card h3, .result-card p {
+    margin: 0;
+    font-size: 14px; /* Tamaño de fuente pequeño */
+}
+
+.button-container {
+    margin-top: 10px; /* Espacio entre la descripción y los botones */
+    display: flex;
+    gap: 10px; /* Espacio entre los botones */
+    justify-content: flex-start; /* Opcional: alineación de botones a la izquierda */
+}
+
+.styled-button {
+    background-color: #0081a7;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.styled-button:hover {
+    opacity: 0.8;
+}

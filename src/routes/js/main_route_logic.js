@@ -8,13 +8,15 @@ var bounds = [
     [6.3442, -75.4812]  // Noreste
 ];
 
+var selectedRouteType = 'foot'; // Valor por defecto para el tipo de ruta
 var markers = [];
 var selectedMarkers = []; // Para almacenar los marcadores seleccionados para la ruta
 var routeControl = null; // Inicializar routeControl como null
+var map;
 
 window.onload = function() {
     
-    var map = L.map('map', {
+    map = L.map('map', {
         center: [6.2442, -75.5812], // Centro del mapa
         zoom: 13, // Zoom inicial
         minZoom: 10, // Zoom out mínimo
@@ -237,4 +239,50 @@ window.onload = function() {
     }
 
     loadMarkers();
+
 };
+
+export async function setViewOnPlace(lat, lng) {
+    map.setView([lat, lng], 18);
+}
+
+export async function getselectedRouteType() {
+    return selectedRouteType;
+}
+
+export function setselectedRouteType(routeType) {
+    selectedRouteType = routeType;
+}
+
+export async function addsearchedRoute(markers){
+    selectedMarkers = markers;
+    if (selectedMarkers.length < 2) {
+        alert("Selecciona al menos dos puntos para trazar la ruta.");
+        return;
+    }
+
+    const colors = ['red', 'green', 'blue', 'orange', 'purple', 'darkred', 'lightgreen', 'darkblue', 'pink', 'yellow', 'black'];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    const port = selectedRouteType === 'foot' ? '5000' : '5001';
+    const coordinates = selectedMarkers.map(marker => `${marker[1]},${marker[0]}`).join(';');
+    const osrmUrl = `http://localhost:${port}/route/v1/driving/${coordinates}?overview=full&geometries=geojson`;
+
+    fetch(osrmUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (routeControl) {
+                map.removeLayer(routeControl); // Elimina la ruta previa si ya existe
+            }
+            const route = data.routes[0].geometry;
+            routeControl = L.geoJSON(route, {
+                style: {
+                    color: randomColor,
+                    weight: 4
+                }
+            }).addTo(map);
+            //map.fitBounds(routeControl.getBounds());
+        })
+        .catch(error => {
+            console.error('Error al obtener la ruta:', error);
+        });
+}

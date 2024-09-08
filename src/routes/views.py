@@ -67,3 +67,30 @@ def search(request):
         return JsonResponse(results, safe=False)
 
     return JsonResponse({'error': 'No query provided'}, status=400)
+
+def get_coords_by_id(request):
+    id = request.GET.get('id', '')
+
+    if id:
+        try:
+            interest_place = InterestPlace.objects.get(id=id)
+            results = {'latitude': interest_place.latitude, 'longitude': interest_place.longitude}
+            return JsonResponse(results, safe=False)
+        except InterestPlace.DoesNotExist:
+            return JsonResponse({'error': 'Place not found'}, status=404)
+
+    return JsonResponse({'error': 'No id provided'}, status=400)
+
+def get_route_coords_by_id(request):
+    id = request.GET.get('id', '')
+
+    if id:
+        try:
+            route = Route.objects.get(id=id)
+            interest_places = RouteInterestPlace.objects.filter(route=route)
+            results = [{'latitude': place.interest_place.latitude, 'longitude': place.interest_place.longitude} for place in interest_places]
+            return JsonResponse(results, safe=False)
+        except Route.DoesNotExist:
+            return JsonResponse({'error': 'Route not found'}, status=404)
+
+    return JsonResponse({'error': 'No id provided'}, status=400)
