@@ -90,10 +90,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const searchBar = document.getElementById('input_search_bar');
     const searchButton = document.getElementById('search-button');
+    const resultContainer = document.createElement('div'); // Crear contenedor de resultados
+
+    // Agregar el contenedor de resultados dentro del header o justo después de search-bar
+    resultContainer.id = 'result-container';
+    resultContainer.style.display = 'none';
+    resultContainer.classList.add('dropdown-content');
+    document.getElementById('search-bar').appendChild(resultContainer); // Coloca el contenedor en el header
 
     // Función para manejar la búsqueda
     const handleSearch = () => {
-        const query = searchBar.value.trim(); // Tomar el valor de la barra de búsqueda
+        const query = searchBar.value.trim();
 
         if (query) {
             // Enviar una petición al backend para obtener los resultados
@@ -102,12 +109,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (!response.ok) {
                         throw new Error('Error en la respuesta del servidor');
                     }
-                    return response.json(); // Convertir a JSON
+                    return response.json();
                 })
                 .then(data => {
-                    // Aquí puedes manejar los resultados obtenidos y mostrarlos en el mapa o la interfaz
-                    console.log("Datos recibidos:", data); // Muestra los resultados en la consola
-                    displayResults(data); // Función para mostrar resultados
+                    console.log('Resultados de la búsqueda:', data);
+                    displayResults(data); // Mostrar resultados
                 })
                 .catch(error => {
                     console.error('Error al realizar la búsqueda:', error);
@@ -118,23 +124,28 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // Asignar el evento al botón de búsqueda
     searchButton.addEventListener('click', handleSearch);
 
-    // Función para mostrar resultados (personalízala según tus necesidades)
     function displayResults(results) {
-        // Limpia los resultados anteriores
-        const resultContainer = document.createElement('div'); // Crear un contenedor para los resultados
-
-        // Crear un HTML dinámico o mostrar marcadores en el mapa según los resultados
-        results.forEach(result => {
-            const resultElement = document.createElement('p');
-            resultElement.textContent = `Nombre: ${result.name}, ID: ${result.id}`; // Ajustar según los campos que recibes
-            resultContainer.appendChild(resultElement);
-        });
-
-        // Añadir el contenedor de resultados al DOM (ajusta según tu estructura HTML)
-        document.body.appendChild(resultContainer);
+        resultContainer.innerHTML = ''; // Limpiar resultados anteriores
+    
+        if (results.length === 0) {
+            const noResults = document.createElement('div');
+            noResults.textContent = 'No se encontraron coincidencias';
+            noResults.style.border = '1px solid red';
+            noResults.style.padding = '10px';
+            resultContainer.appendChild(noResults);
+        } else {
+            results.slice(0, 5).forEach(result => {
+                const resultCard = document.createElement('div');
+                resultCard.className = 'result-card';
+                resultCard.innerHTML = `<h3>${result.name}</h3><p>${result.description}</p>`;
+                resultContainer.appendChild(resultCard);
+            });
+        }
+    
+        resultContainer.style.display = 'block'; // Mostrar el contenedor de resultados
     }
-
+    
+    
 });

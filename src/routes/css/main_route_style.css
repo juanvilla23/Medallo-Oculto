@@ -259,3 +259,24 @@ html, body {
 .selected {
     background-color: black;
 }
+
+#result-container {
+    display: none; /* Ocultar por defecto */
+    position: absolute;
+    top: 60px; /* Ajusta según el diseño */
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    width: 300px;
+    z-index: 1000;
+}
+
+.result-card {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
