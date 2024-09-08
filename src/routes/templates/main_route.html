@@ -34,7 +34,7 @@
                         <button id="search-button"><i class="fa fa-search"></i></button>
                     </div>
                     <div id="menu-buttons">
-                        <button id="menu-button"><i class="fa fa-bars"></i></button>
+                        <button id="menu-button"><i class="fa fa-bus"></i></button>
                         <div id="route-options" class="dropdown-content">
                             <a href="#" id="foot-route">
                                 <span class="selection-circle" id="foot-circle"></span>
@@ -45,15 +45,34 @@
                                 Vehicular
                             </a>
                         </div>
+
+                        <button id="menu-button2"><i class="fa fa-bars"></i></button>
+                        <div id="search-options" class="dropdown-content">
+                            <a href="#" id="event-button">
+                                <span class="selection-circle" id="event-circle"></span>
+                                Evento
+                            </a>
+                            <a href="#" id="route-button">
+                                <span class="selection-circle" id="route-circle"></span>
+                                Ruta
+                            </a>
+                            <a href="#" id="place-button">
+                                <span class="selection-circle" id="place-circle"></span>
+                                Lugar de interes
+                            </a>
+                        </div>
+
                         <button id="login-button">Registrarse</button>
                         <button id="sign-in-button">Iniciar Sesión</button>
+
                     </div>
+
                 </div>
               </div>
             </div>
         </div>
 
-        <script src="{% static 'menu_button.js' %}"></script>
+        <script type="module" src="{% static 'menu_button.js' %}"></script>
         <script type="module" src="{% static 'main_route_logic.js' %}"></script>
     </body>
 </html>
