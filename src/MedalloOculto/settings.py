@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,7 +44,18 @@ INSTALLED_APPS = [
     'rest_framework',
     'tests',
     'routes',
+    'places',
+    'cloudinary',
+    'cloudinary_storage',
+   
 ]
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'ddk5qtfdb',
+    'API_KEY': '478432478122142',
+    'API_SECRET': 'ju0XLyewUgysKj8ElKGZhyTBV4Y',
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -149,3 +163,15 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+CLOUDINARY_CLOUD_NAME = 'ddk5qtfdb'
+CLOUDINARY_API_KEY = '478432478122142'
+CLOUDINARY_API_SECRET = 'ju0XLyewUgysKj8ElKGZhyTBV4Y'
+
+cloudinary.config(
+    cloud_name=CLOUDINARY_CLOUD_NAME,
+    api_key=CLOUDINARY_API_KEY,
+    api_secret=CLOUDINARY_API_SECRET
+)

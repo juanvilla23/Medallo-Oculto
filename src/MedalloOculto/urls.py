@@ -20,9 +20,13 @@ from tests import views as testsView
 
 from django.conf import settings
 from django.conf.urls.static import static
+from places import views as PlaceViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('tests/', include('tests.urls')),
     path('routes/', include('routes.urls')),
+    path('Formulario/',PlaceViews.Mostrar_formulario,name='Mostrar_formulario'),
+    path('add_place/',PlaceViews.add_place,name='add_place'),
+    path('Visualizar/',PlaceViews.visualizarPlaces,name='visualizarPlaces'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

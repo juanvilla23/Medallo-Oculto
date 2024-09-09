@@ -1,0 +1,98 @@
+
+{% extends "./BasePlaces.html" %}
+{%block head %} 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('background-image.png'); /* Puedes cambiar esto por la imagen de fondo que prefieras */
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], input[type="file"], button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #007BFF;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{%endblock%}
+{% block body %}
+    
+
+
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <h1>New Place</h1>
+        <form method="POST" action="/add_place/" enctype="multipart/form-data">
+            {% csrf_token %} 
+            <label for="Place-name">Name your new place:</label>
+            <input type="text" id="Place-name" name="place_name" required >
+
+            <label for="Place-description">Description:</label>
+            <input type="text" id="Place-description" name="place_description" required>
+
+            <label for="Place-address">Address:</label>
+            <input type="text" id="Place-address" name="place_address" required>
+            <br>
+  
+            
+            <fieldset>
+                <legend>Choose Categories:</legend>
+                <label><input type="checkbox" name="categoria_place" value="Cultura"> Cultura</label><br>
+                <label><input type="checkbox" name="categoria_place" value="Fiesta"> Fiesta</label><br>
+                <!-- Agrega más categorías según tus necesidades -->
+            </fieldset>
+            
+
+            <label for="place-image">Upload Image:</label>
+            <input type="file" id="place-image" name="images" multiple required>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+{% endblock%}
+

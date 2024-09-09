@@ -1,0 +1,11 @@
+.custom-card {
+    width: 300px; /* Ajusta el ancho de la tarjeta */
+    margin: 0 auto; /* Centra la tarjeta horizontalmente */
+}
+
+.custom-img {
+    width: 100%; /* Hace que la imagen ocupe el ancho completo de la tarjeta */
+    height: 200px; /* Fija la altura de la imagen */
+    object-fit: cover; /* Recorta la imagen para que se ajuste sin distorsionarse */
+    object-position: center; /* Centra la parte visible de la imagen */
+}

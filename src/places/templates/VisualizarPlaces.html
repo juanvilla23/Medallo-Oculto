@@ -1,0 +1,90 @@
+{% extends "./BasePlaces.html" %}
+{%block head %} 
+<style>
+    .custom-card {
+        width: 400px; /* Ajusta el ancho de la tarjeta */
+        margin: 0 auto; /* Centra la tarjeta horizontalmente */
+        margin-bottom: 10px;
+    }
+    
+    .custom-img {
+        width: 100%; /* Hace que la imagen ocupe el ancho completo de la tarjeta */
+        height: 200px; /* Fija la altura de la imagen */
+        object-fit: cover; /* Recorta la imagen para que se ajuste sin distorsionarse */
+        object-position: center; /* Centra la parte visible de la imagen */
+    }
+    .row {
+        background-color: black;
+        color:gold
+
+    }
+    .container-fluid{
+        background-color: black;
+    }
+    #Fila-1 {
+        font-size: 100px;
+        justify-content: center;
+    }
+    .col {
+        padding: 10px; /* Elimina el padding de las columnas */
+        margin-right: 0px; /* Ajusta el espacio entre las columnas */
+    }
+    
+</style> 
+{%endblock%}
+{% block body %}
+
+<div class="container-fluid ">
+    <div class="row tex" id="Fila-1">
+        Interest Places  
+    </div>
+    <div class="row row-cols-1 row-cols-md-3 ">
+        {% for place in places %}
+        <div class="col">
+            <div class="card custom-card">
+                <img src="{{ place.first_image }}" class="card-img-top custom-img " alt="...">
+                <div class="card-body">
+                    
+                    <h5 class="card-title fw-bold">{{ place.name }}</h5>
+                    <p class="card-text">{{ place.description }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{ place.listar_categorias }}</li>
+                    <li class="list-group-item">Address: {{ place.address}}</li>
+                    
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    </div> 
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+<div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">An item</li>
+      <li class="list-group-item">A second item</li>
+      <li class="list-group-item">A third item</li>
+    </ul>
+    <div class="card-body">
+      <a href="#" class="card-link">Card link</a>
+      <a href="#" class="card-link">Another link</a>
+    </div>
+  </div>
+
+  
+      
+
+
+      
