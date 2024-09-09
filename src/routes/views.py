@@ -13,9 +13,11 @@ def main_route(request):
 def get_markers(request):
     # Obtén todos los lugares de interés de la base de datos
     interest_places = InterestPlace.objects.all().filter(status=True)
+    
 
     # Serializa los datos que quieres enviar en el JSON
     markers = list(interest_places.values('id', 'name', 'description', 'latitude', 'longitude', 'images', 'categories'))
+    print(markers)
 
     # Devuelve la respuesta en formato JSON
     return JsonResponse({'markers': markers})
