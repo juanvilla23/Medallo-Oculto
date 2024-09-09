@@ -10,7 +10,7 @@ class InterestPlace(models.Model):
     status = models.BooleanField(default=True)
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
-    images = ArrayField(models.CharField(max_length=200), blank=True, null=True)
+    images = ArrayField(models.CharField(max_length=600), blank=True, null=True)
     address=models.CharField(max_length=200,default="Dirección desconocida")
     
 

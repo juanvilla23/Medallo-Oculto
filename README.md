@@ -1,5 +1,20 @@
 # **Medallo Oculto**
 
+## Executing SQL Scripts ##
+
+In the **/resources/scripts** directory, there are several scripts that create routes and points of interest. These scripts are used during development for testing purposes and to ensure that all developers work with the same data. You can run these scripts by entering the Docker container with the following command:
+
+```bash
+docker exec -it MO-postgres bash
+```
+
+Once inside the container, you can execute the selected script with the following command:
+
+```bash
+psql -U [USER] -d [DATABASE_NAME] -f /data/[SQL_SCRIPT]
+```
+
+
 ## Router Machines Configuration
 
 In the `resources/data` directory, you can find two subdirectories where you need to configure the necessary data for routing in the application. We use [OSRM](https://project-osrm.org/), and each subdirectory, **car_profile** and **foot_profile**, represents the two travel modes in the application. Each one has instructions for processing the data for the specified profile. We use an instance of the **osrm/osrm-backend** Docker image to run the corresponding profile. Below, you can see a generic instruction. You can find more information about **osrm/osrm-backend** on [DockerHub](https://hub.docker.com/r/osrm/osrm-backend).

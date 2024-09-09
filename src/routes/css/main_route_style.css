@@ -72,7 +72,7 @@ html, body {
 
 /* Estilo del input de búsqueda, con bordes redondeados, sombra y tamaño de fuente ajustado */
 #search-bar input {
-    width: 300px;
+    width: 400px;
     height: 40px; /* Altura ajustada */
     padding: 5px 20px; /* Padding ajustado */
     border: none;
@@ -197,4 +197,115 @@ html, body {
 
 .selected {
     background-color: black; /* Color del círculo cuando está seleccionado */
+}
+
+
+/* Estilo para el segundo botón de menú */
+#menu-button2 {
+    background-color: #0081a7;
+    border: none;
+    padding: 8px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    margin-right: 15px;
+    font-size: 16px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 40px;
+}
+
+#menu-button2:hover {
+    opacity: 0.8;
+}
+
+/* Menú desplegable para el segundo botón */
+#search-options {
+    display: none;
+    position: absolute;
+    top: 100%; /* Justo debajo del botón */
+    left: 0; /* Alinea el menú debajo del botón de búsqueda */
+    background-color: #05299E;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-top: 5px;
+    border-radius: 10px;
+    padding: 8px 0;
+    opacity: 0.7;
+}
+
+#search-options a {
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #05299E;
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+
+#search-options a:hover {
+    background-color: #05299E;
+}
+
+.selected {
+    background-color: black;
+}
+
+#result-container {
+    display: none; /* Keep it hidden by default */
+    position: absolute;
+    top: 60px; /* Adjust based on your design */
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.1); /* Lighten the background */
+    padding: 5px; /* Reduce padding for a cleaner appearance */
+    width: 450px; /* Make it narrower to resemble buttons */
+    z-index: 1000;
+    border-radius: 10px; /* Rounded corners */
+    margin-left: 20px;
+}
+
+.result-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Cambiar a columna para alinear todo verticalmente */
+}
+
+.result-card h3, .result-card p {
+    margin: 0;
+    font-size: 14px; /* Tamaño de fuente pequeño */
+}
+
+.button-container {
+    margin-top: 10px; /* Espacio entre la descripción y los botones */
+    display: flex;
+    gap: 10px; /* Espacio entre los botones */
+    justify-content: flex-start; /* Opcional: alineación de botones a la izquierda */
+}
+
+.styled-button {
+    background-color: #0081a7;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.styled-button:hover {
+    opacity: 0.8;
 }
