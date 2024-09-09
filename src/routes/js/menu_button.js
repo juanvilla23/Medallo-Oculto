@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function showPlace(placeId) {
         console.log('Mostrar lugar con ID:', placeId);
-        // Aquí puedes implementar la lógica para mostrar el lugar en el mapa
+        window.location.href = '/Visualizar/'
     }
     
     function viewEvent(eventId) {

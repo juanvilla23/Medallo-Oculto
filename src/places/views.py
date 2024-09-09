@@ -4,15 +4,10 @@ from routes.models import InterestPlace
 from cloudinary.uploader import upload
 import requests 
 from django.contrib import messages
+import os
+import json
 
 from django.http import JsonResponse
-
-
-
-
-
-
-
 
 def Mostrar_formulario(request):
     return render(request,'Formulario_agregar_lugares.html')
@@ -22,7 +17,7 @@ def add_place(request):
     descriptionF=request.POST['place_description']
     categoriaF=request.POST.getlist('categoria_place')
     
-    API_KEY = 'AIzaSyAnPvzDOXpPUuTVc_h_PXL-CpKL5bH5T4I'
+    API_KEY_GC = os.getenv('API_KEY_GC')
 
     # La dirección que deseas geocodificar
     addressF =  request.POST['place_address'] #'Cra. 40 #51-24' #Pablo tobón uribe
@@ -33,7 +28,7 @@ def add_place(request):
     # Parámetros de la solicitud
     params = {
         'address': addressF,
-        'key': API_KEY
+        'key': API_KEY_GC
     }
 
     # Realizar la solicitud GET a la API
