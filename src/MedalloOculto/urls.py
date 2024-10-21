@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('tests/', include('tests.urls')),
     path('routes/', include('routes.urls')),
+    path('views/', include('views.urls')),
     path('Formulario/',PlaceViews.Mostrar_formulario,name='Mostrar_formulario'),
     path('add_place/',PlaceViews.add_place,name='add_place'),
     path('Visualizar/',PlaceViews.visualizarPlaces,name='visualizarPlaces'),

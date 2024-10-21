@@ -1,0 +1,57 @@
+{% extends 'side_bar.html' %}
+
+{% block title %} Rutas {% endblock %}
+
+{% block content %}
+  <div class="table-container">
+    <div style="margin: 25px auto;"> <h1>Lista de Rutas</h1> </div>
+
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for route in routes %}
+        <tr>
+          <td>{{ route.name }}</td>
+          <td>
+            <a href="{% url 'route_view' route.pk %}" class="action-button view">Ver</a>
+            <a href="{% url 'route_edit' route.pk %}" class="action-button edit">Editar</a>
+            <form action="{% url 'route_delete' route.pk %}" method="post" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit" class="action-button delete">Eliminar</button>
+            </form>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="2">No hay rutas disponibles.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="pagination">
+      {% if is_paginated %}
+        <span class="step-links">
+          {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; Primero</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+          {% endif %}
+
+          <span class="current">
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+          </span>
+
+          {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Último &raquo;</a>
+          {% endif %}
+        </span>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

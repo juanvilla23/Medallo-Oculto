@@ -1,0 +1,82 @@
+{% extends 'side_bar.html' %}
+
+{% block title %} Detalles de la Ruta {% endblock %}
+
+{% block content %}
+
+<style>
+  #route_detaish1-1 {
+    margin-left: 3%; /* Añade margen a la izquierda del título */
+  }
+
+  #route_detaish2-1 {
+    margin-top: 2%;
+    text-align: center; /* Centra el subtítulo */
+    margin-bottom: 20px; /* Añade un margen inferior para separar el subtítulo del carrusel */
+  }
+  
+  .carousel-container {
+    max-width: 50%;    /* Limita el ancho máximo del carrusel al 50% de la pantalla */
+    margin: 20px auto; /* Centra el carrusel y añade un margen superior e inferior */
+  }
+
+  .carousel-item img {
+    width: 100%;       /* Asegura que las imágenes ocupen todo el ancho del contenedor */
+    max-height: 400px;  /* Limita la altura máxima de las imágenes */
+    object-fit: cover;  /* Asegura que las imágenes mantengan su proporción dentro del contenedor */
+  }
+
+  .carousel-caption {
+    color: white;       /* Cambia el color del texto */
+  }
+
+  .button-container {
+    margin-top: 20px;  /* Añade un margen superior al botón */
+    display: flex;
+    justify-content: center; /* Centra el botón debajo del carrusel */
+  }
+
+  .btn {
+    padding: 10px 20px; /* Ajusta el tamaño del botón */
+    margin-top: 20px;   /* Añade un margen superior para separarlo del carrusel */
+  }
+</style>
+
+<h1 id="route_detaish1-1">{{ route.name }}</h1>
+
+<h2 id="route_detaish2-1">Lugares de interés</h2>
+
+{% if interest_places %}
+  <!-- Contenedor del carrusel para controlar el tamaño y márgenes -->
+  <div class="carousel-container">
+    <div id="interestPlaceCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        {% for rip in interest_places %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <img src="{{ rip.interest_place.first_image }}" class="d-block w-100" alt="{{ rip.interest_place.name }}">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>{{ rip.interest_place.name }}</h5>
+            <p>{{ rip.interest_place.description }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#interestPlaceCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#interestPlaceCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Siguiente</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Contenedor para el botón, centrado con márgenes -->
+  <div class="button-container">
+    <a href="{% url 'route_list' %}" class="btn btn-primary">Volver a la lista</a>
+  </div>
+{% else %}
+  <p>No hay lugares de interés asignados a esta ruta.</p>
+{% endif %}
+{% endblock %}
