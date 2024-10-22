@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView
 from django.urls import reverse
 from django.contrib import messages
 from cloudinary.uploader import upload
@@ -58,6 +58,14 @@ class PlaceListView(ListView):
     model = InterestPlace
     template_name = 'VisualizarPlaces.html'
     context_object_name = 'places'
+
+class EditPlaceView(UpdateView):
+    model = InterestPlace
+    template_name = 'place/Formulario_agregar_lugares.html'
+    form_class = PlaceForm
+
+    def get_success_url(self):
+        return reverse('places_list')
 
 def submit_place(request):
     if request.method == 'POST':

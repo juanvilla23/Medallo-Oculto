@@ -3,42 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upcoming Events</title>
+    <title>Upcoming Places</title>
     <!-- Enlace a Bootstrap para mejorar el estilo -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container my-5">
-        <h1 class="mb-4">Upcoming Events</h1>
+        <h1 class="mb-4">Upcoming places</h1>
 
-        <!-- Verificamos si hay eventos -->
-        {% if events %}
+        <!-- Verificamos si hay placeos -->
+        {% if places %}
             <div class="row row-cols-1 row-cols-md-3 g-4">
-                <!-- Iteramos sobre los eventos -->
-                {% for event in events %}
+                <!-- Iteramos sobre los placeos -->
+                {% for place in places %}
                     <div class="col">
                         <div class="card h-100">
-                            <!-- Imagen del evento -->
-                            <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.name }} image">
+                            <!-- Imagen del placeo -->
+                            <img src="{{ place.image.url }}" class="card-img-top" alt="{{ place.name }} image">
                             <div class="card-body">
-                                <h5 class="card-title fw-bold">{{ event.name }}</h5>
-                                <p class="card-text">{{ event.description }}</p>
+                                <h5 class="card-title fw-bold">{{ place.name }}</h5>
+                                <p class="card-text">{{ place.description }}</p>
                             </div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item"><strong>Date:</strong> {{ event.date_and_time }}</li>
-                                <li class="list-group-item"><strong>Address:</strong> {{ event.address }}</li>
+                                <li class="list-group-item"><strong>Date:</strong> {{ place.date_and_time }}</li>
+                                <li class="list-group-item"><strong>Address:</strong> {{ place.address }}</li>
                             </ul>
                             <!-- Botón Edit -->
                             <div class="card-body">
-                                <a href="{% url 'edit_event' event.id %}" class="btn btn-primary">Edit</a>
+                              <!-- Botón Edit  <a href="{% url 'submit_place'%}" class="btn btn-primary">Edit</a>-->
                             </div>
                         </div>
                     </div>
                 {% endfor %}
             </div>
         {% else %}
-            <!-- Si no hay eventos, mostramos un mensaje -->
-            <p class="text-muted">No upcoming events.</p>
+            <!-- Si no hay placeos, mostramos un mensaje -->
+            <p class="text-muted">No upcoming places.</p>
         {% endif %}
     </div>
 
