@@ -4,6 +4,10 @@ from django.http import JsonResponse
 from .models import (InterestPlace, Route, RouteInterestPlace)
 from django.db import connection
 from django.db.models.functions import Lower
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from .models import Route
+from .forms import RouteForm
 import re
 
 # Create your views here.
@@ -95,3 +99,15 @@ def get_route_coords_by_id(request):
             return JsonResponse({'error': 'Route not found'}, status=404)
 
     return JsonResponse({'error': 'No id provided'}, status=400)
+
+class CreateRouteView(CreateView):
+    model = Route
+    form_class = RouteForm
+    template_name = 'routes/create_route.html'  
+    #fields = ['name', 'description', 'places']
+    success_url = reverse_lazy('routes-list')  
+    
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        return super().form_valid(form)
+

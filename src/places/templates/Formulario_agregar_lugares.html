@@ -1,98 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ event.id|default:"Create Place" }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
 
-{% extends "./BasePlaces.html" %}
-{%block head %} 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-image: url('background-image.png'); /* Puedes cambiar esto por la imagen de fondo que prefieras */
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+    <div class="form-container">
+        <h1>{{ event.id|default:"Create Place" }}</h1>
 
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: center;
-        }
+        <form method="POST" action="{% url 'submit_place' %}" enctype="multipart/form-data">
+            {% csrf_token %}
 
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
+            {% if form.non_field_errors %}
+            <div class="error-messages">
+                <ul>
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
 
-        input[type="text"], input[type="file"], button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 1rem;
-        }
-
-        input[type="text"]:focus {
-            outline: none;
-            border-color: #007BFF;
-        }
-
-        button {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-{%endblock%}
-{% block body %}
-    
-
-
-    <div class="container">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <label for="name">Name your new place:</label>
+            <input type="text" id="name" name="name" value="{{ form.name.value }}" required>
+            {% if form.name.errors %}
+                <div class="field-error">
+                    <ul>
+                        {% for error in form.name.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
-            {% endfor %}
-        {% endif %}
-        <h1>New Place</h1>
-        <form method="POST" action="/add_place/" enctype="multipart/form-data">
-            {% csrf_token %} 
-            <label for="Place-name">Name your new place:</label>
-            <input type="text" id="Place-name" name="place_name" required >
+            {% endif %}
 
-            <label for="Place-description">Description:</label>
-            <input type="text" id="Place-description" name="place_description" required>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" required>{{ form.description.value }}</textarea>
+            {% if form.description.errors %}
+                <div class="field-error">
+                    <ul>
+                        {% for error in form.description.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
 
-            <label for="Place-address">Address:</label>
-            <input type="text" id="Place-address" name="place_address" required>
-            <br>
-  
-            
-            <fieldset>
-                <legend>Choose Categories:</legend>
-                <label><input type="checkbox" name="categoria_place" value="Cultura"> Cultura</label><br>
-                <label><input type="checkbox" name="categoria_place" value="Fiesta"> Fiesta</label><br>
-                <!-- Agrega más categorías según tus necesidades -->
-            </fieldset>
-            
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" value="{{ form.address.value }}" required>
+            {% if form.address.errors %}
+                <div class="field-error">
+                    <ul>
+                        {% for error in form.address.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
 
-            <label for="place-image">Upload Image:</label>
-            <input type="file" id="place-image" name="images" multiple required>
+            <label for="categories">Choose a category:</label>
+            <select id="categories" name="categories" required>
+                
+                {% for category in form.categories.field.choices %}
+                <option value="{{ category.0 }}" {% if form.categories.value == category.0 %}selected{% endif %}>
+                    {{ category.1 }}
+                </option>
+                {% endfor %}
+            </select>
 
-            <button type="submit">Submit</button>
+            <label for="image">Upload Image:</label>
+            <input type="file" id="image" name="images" multiple required>
+            {% if form.images.errors %}
+                <div class="field-error">
+                    <ul>
+                        {% for error in form.images.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <button type="submit">
+                {% if event.id %}
+                    Save Changes
+                {% else %}
+                    Finish and send to approval
+                {% endif %}
+            </button>
         </form>
     </div>
-{% endblock%}
-
+</body>
+</html>
