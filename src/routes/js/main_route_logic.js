@@ -209,7 +209,7 @@ window.onload = function() {
                         <img src="${markerData.images[0]}" alt="${markerData.name}" style="width:100%; height:auto; border-radius: 4px;">
                         <h3 style="margin-top: 8px; font-size: 14px; color: #423E3B;">${markerData.name}</h3>
                         <p style="font-size: 10px; color: #ffffffb3;">${markerData.description}</p>
-                        <button onclick="verMas(${markerData.id})" style="background-color: #423E3B; color:#ffffffb3; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer;">
+                        <button onclick="window.location.href = '/Visualizar/'" style="background-color: #423E3B; color:#ffffffb3; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer;">
                             Ver más
                         </button>
                         <button class="add-to-route" data-lat="${markerData.latitude}" data-lng="${markerData.longitude}" style="background-color: #f3e900; color:#423E3B; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; margin-top: 8px;">
