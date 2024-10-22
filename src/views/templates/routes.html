@@ -19,7 +19,8 @@
           <td>{{ route.name }}</td>
           <td>
             <a href="{% url 'route_view' route.pk %}" class="action-button view">Ver</a>
-            <a href="{% url 'route_edit' route.pk %}" class="action-button edit">Editar</a>
+            <!-- <a href="{% url 'route_edit' route.pk %}" class="action-button edit">Editar</a> -->
+            <a href="#" class="action-button edit">Editar</a>
             <form action="{% url 'route_delete' route.pk %}" method="post" style="display:inline;">
               {% csrf_token %}
               <button type="submit" class="action-button delete">Eliminar</button>
