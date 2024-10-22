@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./images/Eventsuccessview.png'); /* Cambia esta ruta por la de tu imagen */
+    background-size: cover; /* Ajusta la imagen para que cubra el fondo sin deformarse */
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.button-container {
+    position: absolute;
+    bottom: 10%; /* Ajusta este valor según necesites */
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo con transparencia */
+    border: 2px solid #007bff; /* Borde azul */
+    border-radius: 10px; /* Bordes suaves */
+    box-shadow: 0px 0px 10px rgba(0, 0, 255, 0.3); /* Sombra suave en azul */
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 15px rgba(0, 0, 255, 0.6); /* Sombra más pronunciada al hacer hover */
+}

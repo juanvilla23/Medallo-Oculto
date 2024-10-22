@@ -1,149 +1,98 @@
-{% extends "side_bar.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ event.id|default:"Create Place" }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
 
-{% block head %} 
-    <style>
-        /* Asegura que html y body ocupen toda la pantalla */
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <div class="form-container">
+        <h1>{{ event.id|default:"Create Place" }}</h1>
 
-        /* Ajusta el contenedor principal de la sección */
-        #home-section-vlt {
-            display: flex;
-            justify-content: center;
-            align-items: center; /* Centra verticalmente */
-            padding: 40px 20px;
-            background-color: #f0f2f5;
-            min-height: 100vh; /* Asegura que ocupa toda la altura de la ventana */
-            box-sizing: border-box;
-        }
+        <form method="POST" action="{% url 'submit_place' %}" enctype="multipart/form-data">
+            {% csrf_token %}
 
-        /* Contenedor del formulario */
-        #form-container-vlt {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 600px; /* Ajusta el ancho máximo del formulario */
-            text-align: center;
-            margin: auto;
-            overflow: hidden; /* Evita que el contenido sobresalga del borde */
-        }
-
-        /* Encabezado del formulario (sin fondo gris) */
-        #form-header-vlt {
-            background-color: white; /* Fondo blanco, igual al del cuerpo */
-            padding: 20px;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-        }
-
-        #form-title-vlt {
-            font-size: 2rem;
-            margin: 0;
-        }
-
-        /* Cuerpo del formulario */
-        #form-body-vlt {
-            padding: 30px;
-        }
-
-        #form-body-vlt label {
-            font-weight: bold;
-            display: block;
-            margin-top: 10px;
-            text-align: left;
-        }
-
-        #form-body-vlt input[type="text"], #form-body-vlt input[type="file"], #form-body-vlt button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            font-size: 1rem;
-        }
-
-        #form-body-vlt input[type="text"]:focus, #form-body-vlt input[type="file"]:focus {
-            outline: none;
-            border-color: #007BFF;
-        }
-
-        #submit-button-vlt {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        #submit-button-vlt:hover {
-            background-color: #0056b3;
-        }
-
-        /* Ajuste del fieldset para categorías */
-        #category-fieldset-vlt {
-            border: 1px solid #ddd;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: left;
-            margin-top: 5px;
-        }
-
-        #category-legend-vlt {
-            font-weight: bold;
-        }
-    </style>
-{% endblock %}
-
-{% block content %}
-    <div id="home-section-vlt">
-        <div id="form-container-vlt">
-            <!-- Encabezado blanco -->
-            <div id="form-header-vlt">
-                <h1 id="form-title-vlt">New Place</h1>
-            </div>
-            
-            <!-- Contenido del formulario -->
-            <div id="form-body-vlt">
-                {% if messages %}
-                    {% for message in messages %}
-                        <div id="message-alert-vlt" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                            {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
+            {% if form.non_field_errors %}
+            <div class="error-messages">
+                <ul>
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
                     {% endfor %}
-                {% endif %}
-
-                <form method="POST" action="/add_place/" enctype="multipart/form-data">
-                    {% csrf_token %} 
-
-                    <label for="Place-name-vlt">Name your new place:</label>
-                    <input type="text" id="Place-name-vlt" name="place_name" required>
-
-                    <label for="Place-description-vlt">Description:</label>
-                    <input type="text" id="Place-description-vlt" name="place_description" required>
-
-                    <label for="Place-address-vlt">Address:</label>
-                    <input type="text" id="Place-address-vlt" name="place_address" required>
-
-                    <fieldset id="category-fieldset-vlt">
-                        <legend id="category-legend-vlt">Choose Categories:</legend>
-                        <label><input type="checkbox" name="categoria_place" value="Cultura"> Cultura</label><br>
-                        <label><input type="checkbox" name="categoria_place" value="Fiesta"> Fiesta</label><br>
-                        <label><input type="checkbox" name="categoria_place" value="Fiesta"> Recreativo</label><br>
-                        <!-- Agrega más categorías según tus necesidades -->
-                    </fieldset>
-
-                    <label for="place-image-vlt">Upload Image:</label>
-                    <input type="file" id="place-image-vlt" name="images" multiple required>
-
-                    <button id="submit-button-vlt" type="submit">Submit</button>
-                </form>
+                </ul>
             </div>
-        </div>
+            {% endif %}
+
+            <label for="name">Name your new place:</label>
+            <input type="text" id="name" name="name" value="{{ form.name.value }}" required>
+            {% if form.name.errors %}
+                <div class="field-error">
+                    <ul>
+                        {% for error in form.name.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" required>{{ form.description.value }}</textarea>
+            {% if form.description.errors %}
+                <div class="field-error">
+                    <ul>
+                        {% for error in form.description.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" value="{{ form.address.value }}" required>
+            {% if form.address.errors %}
+                <div class="field-error">
+                    <ul>
+                        {% for error in form.address.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <label for="categories">Choose a category:</label>
+            <select id="categories" name="categories" required>
+                
+                {% for category in form.categories.field.choices %}
+                <option value="{{ category.0 }}" {% if form.categories.value == category.0 %}selected{% endif %}>
+                    {{ category.1 }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <label for="Place-description">Description:</label>
+            <input type="text" id="Place-description" name="place_description" required>
+
+            <label for="Place-address">Address:</label>
+            <input type="text" id="Place-address" name="place_address" required>
+            <br>
+  
+            
+            <fieldset>
+                <legend>Choose Categories:</legend>
+                <label><input type="checkbox" name="categoria_place" value="Cultura"> Cultura</label><br>
+                <label><input type="checkbox" name="categoria_place" value="Fiesta"> Fiesta</label><br>
+                <!-- Agrega más categorías según tus necesidades -->
+            </fieldset>
+            
+
+            <label for="place-image">Upload Image:</label>
+            <input type="file" id="place-image" name="images" multiple required>
+
+            <button type="submit">Submit</button>
+        </form>
     </div>
-{% endblock %}
+{% endblock%}
+

@@ -1,0 +1,100 @@
+/* Estilo para el cuerpo de la página */
+body {
+    background-image: url('./images/Medellin.jpg'); /* Asegúrate de que la ruta sea correcta */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: flex;
+    justify-content: center;
+    font-family: 'Cabin', sans-serif; /* Fuente Cabin para consistencia */
+    overflow-y: auto; /* Permitir el desplazamiento vertical */
+}
+
+/* Contenedor del formulario */
+.form-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto; /* Margen superior e inferior para espacio adicional */
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Cabin', sans-serif;
+    max-height: 90vh; /* Limita la altura del contenedor */
+    overflow-y: auto; /* Permitir el desplazamiento dentro del formulario si es necesario */
+}
+
+/* Estilo para el título */
+h1 {
+    font-size: 36px;
+    color: #000000; /* Color del título */
+    margin-bottom: 20px;
+    font-family: 'Cabin', sans-serif; /* Aplicar la fuente Cabin */
+}
+
+/* Estilo para los elementos del formulario */
+form {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form p {
+    width: 100%;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+/* Estilo para los inputs y selectores */
+input[type="text"], 
+input[type="number"], 
+input[type="file"], 
+textarea, 
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-sizing: initial;
+    font-size: 16px;
+}
+
+/* Botón de envío */
+button {
+    background-color: #446DBF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Enlace para volver a la lista de rutas */
+.back-link {
+    margin-top: 15px;
+}
+
+.back-link a {
+    color: #446DBF;
+    text-decoration: none;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}

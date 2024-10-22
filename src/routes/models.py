@@ -42,9 +42,8 @@ class InterestPlace(models.Model):
 
 class Route(models.Model):
     #creator = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    name = models.CharField(max_length=200)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
-    description = models.TextField()
+    name = models.CharField(max_length=200)
     #rating = models.DecimalField(max_digits=3, decimal_places=2)
     #comments = models.TextField()
 

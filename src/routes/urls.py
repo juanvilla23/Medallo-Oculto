@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import CreateRouteView
 
 urlpatterns = [
     path('', views.main_route, name='main_route'),

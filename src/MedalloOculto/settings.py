@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+
 from dotenv import load_dotenv
 from pathlib import Path
 import os
@@ -16,7 +17,7 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
-load_dotenv()
+load_dotenv()  # Esto cargará las variables del archivo .env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'tests',
     'routes',
     'places',
+    'events',
     'cloudinary',
     'cloudinary_storage',
     'views',
@@ -164,6 +166,9 @@ STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static'), os.path.join(BASE_DIR, 'r
                     os.path.join(BASE_DIR, 'users/js'), os.path.join(BASE_DIR, 'users/fonts'), os.path.join(BASE_DIR, 'users/scss'), os.path.join(BASE_DIR, 'users/css'),]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

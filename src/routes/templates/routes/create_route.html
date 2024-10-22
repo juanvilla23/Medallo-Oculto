@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Route</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/route_form_style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Contenedor principal para el formulario -->
+    <div class="form-container">
+        <h1>Create a New Route</h1>
+
+        <!-- Formulario de creación de rutas -->
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <!-- Botón de envío del formulario -->
+            <button type="submit">Save Route</button>
+        </form>
+    </div>
+
+</body>
+</html>
