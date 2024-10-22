@@ -1,0 +1,64 @@
+{% extends 'side_bar.html' %}
+
+{% block title %} Lugares de Interés {% endblock %}
+
+{% block content %}
+  <div class="table-container">
+    <div style="margin: 25px auto;"> <h1>Lista de Lugares de Interés</h1> </div>
+
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Dirección</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for place in interest_places %}
+        <tr>
+          <td>{{ place.name }}</td>
+          <td>{{ place.description }}</td>
+          <td>{{ place.address }}</td>
+          <td>
+            <!-- <a href="{% url 'interest_place_view' place.pk %}" class="action-button view">Ver</a>
+            <a href="{% url 'interest_place_edit' place.pk %}" class="action-button edit">Editar</a> -->
+
+            <a href="{% url 'visualizarPlaces'%}" class="action-button view">Ver</a>
+            <a href="#" class="action-button edit">Editar</a>
+            <form action="{% url 'interest_place_delete' place.pk %}" method="post" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit" class="action-button delete">Eliminar</button>
+            </form>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4">No hay lugares de interés disponibles.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="pagination">
+      {% if is_paginated %}
+        <span class="step-links">
+          {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; Primero</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+          {% endif %}
+
+          <span class="current">
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+          </span>
+
+          {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Último &raquo;</a>
+          {% endif %}
+        </span>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'events',
     'cloudinary',
     'cloudinary_storage',
+    'views',
    
 ]
 CLOUDINARY_STORAGE = {
@@ -159,7 +160,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'routes/images'), os.path.join(BASE_DIR, 'routes/js'), os.path.join(BASE_DIR, 'routes/css'), os.path.join(BASE_DIR, 'routes/external/contextmenu'), \
-                    os.path.join(BASE_DIR, 'routes/external/easybutton'), os.path.join(BASE_DIR, 'routes/external/clickmenu')]
+                    os.path.join(BASE_DIR, 'routes/external/easybutton'), os.path.join(BASE_DIR, 'routes/external/clickmenu'), os.path.join(BASE_DIR, 'views/css'), os.path.join(BASE_DIR, 'views/js')]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
@@ -173,9 +174,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
-CLOUDINARY_CLOUD_NAME = 'ddk5qtfdb'
-CLOUDINARY_API_KEY = '478432478122142'
-CLOUDINARY_API_SECRET = 'ju0XLyewUgysKj8ElKGZhyTBV4Y'
+CLOUDINARY_CLOUD_NAME = os.getenv('CLOUDINARY_CLOUD_NAME')
+CLOUDINARY_API_KEY = os.getenv('CLOUDINARY_API_KEY')
+CLOUDINARY_API_SECRET = os.getenv('CLOUDINARY_API_SECRET')
 
 cloudinary.config(
     cloud_name=os.getenv('CLOUD_NAME'),

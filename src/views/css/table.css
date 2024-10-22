@@ -1,0 +1,103 @@
+body {
+    background-color: #f3f3f3; /* Fondo gris claro para toda la página */
+    margin: 0;
+    padding: 0;
+}
+
+.table-container {
+    background-color: #f3f3f3; /* Mismo fondo que la tabla */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.styled-table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 25px auto;
+    font-size: 18px;
+    text-align: left;
+    border-radius: 8px 8px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.styled-table th, .styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+/* Botones de acción */
+.action-button {
+    padding: 5px 10px;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.action-button.view {
+    background-color: #3498db;
+}
+
+.action-button.edit {
+    background-color: #f39c12;
+}
+
+.action-button.delete {
+    background-color: #e74c3c;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.action-button.delete:hover {
+    background-color: #c0392b;
+}
+
+/* Estilo de la paginación */
+.pagination {
+    text-align: center;
+    margin: 20px 0;
+    margin-bottom: 2%;
+}
+
+.pagination a {
+    color: #009879;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    margin: 0 2px;
+}
+
+.pagination a:hover {
+    background-color: #f3f3f3;
+}
+
+.pagination .current {
+    padding: 8px 16px;
+    background-color: #009879;
+    color: white;
+    border-radius: 5px;
+    margin: 0 2px;
+}
