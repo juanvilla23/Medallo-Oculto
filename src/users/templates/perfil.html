@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil del Usuario</title>
+</head>
+<body>
+    <h1>Perfil del Usuario</h1>
+    
+    <h2>Información Básica</h2>
+    <p><strong>Nombre de Usuario:</strong> {{ usuario.username }}</p>
+    <p><strong>Tipo de Perfil:</strong> {{ datos_usuario.tipo }}</p>
+    <p><strong>ID:</strong> {{ datos_usuario.id }}</p>
+    
+    <!-- Información específica para Promotores o Turistas -->
+    {% if es_promotor %}
+        <h2>Información del Promotor</h2>
+        
+    {% elif es_turista %}
+        <h2>Información del Turista</h2>
+    {% else %}
+        <p>No se encontró información adicional.</p>
+    {% endif %}
+    
+    <a href="">Cerrar Sesión</a>
+</body>
+</html>

@@ -30,4 +30,5 @@ urlpatterns = [
     path('Formulario/',PlaceViews.Mostrar_formulario,name='Mostrar_formulario'),
     path('add_place/',PlaceViews.add_place,name='add_place'),
     path('Visualizar/',PlaceViews.visualizarPlaces,name='visualizarPlaces'),
+    path('users/',include('users.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
