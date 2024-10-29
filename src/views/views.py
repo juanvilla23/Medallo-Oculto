@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, UpdateView, DetailView
-from routes.models import InterestPlace, Route, RouteInterestPlace
+from routes.models import  Route, RouteInterestPlace
+from places.models import InterestPlace
 from django.urls import reverse_lazy
 from django.core.paginator import Paginator
 
@@ -107,10 +108,9 @@ def remove_image(request, pk, public_id):
 # Vista para listar los lugares de interés con paginación
 class InterestPlaceListView(LoginRequiredMixin, ListView):
     model = InterestPlace
-    template_name = 'interest_places.html'
-    context_object_name = 'interest_places'
-    paginate_by = 10
-    login_url = 'mostrar_formulario_Inicio'  # URL de inicio de sesión si el usuario no está autenticado
+    template_name = 'interest_places.html'  # Tu plantilla
+    context_object_name = 'places'    # Nombre de la variable para pasar a la plantilla
+    paginate_by = 10                           # Número de elementos por página
 
 # Vista para editar un lugar de interés (requiere autenticación y ser el creador)
 class InterestPlaceUpdateView(LoginRequiredMixin, UpdateView):
@@ -210,8 +210,8 @@ class RouteDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # Obtener los lugares de interés relacionados con la ruta
         context['interest_places'] = RouteInterestPlace.objects.filter(route=self.object)
-        context['route_description'] = self.object.description
         return context
 
 # Vista para eliminar un lugar de interés (requiere autenticación y ser el creador)
@@ -235,52 +235,12 @@ def delete_route(request, pk):
 # Crear rutas
 
 
-class RouteForm(ModelForm):
-    class Meta:
-        model = Route
-        fields = ['name', 'description']
+class RouteUpdateView(UpdateView):
+    model = Route
+    fields = ['name']  # Campos que se pueden editar
+    template_name = 'route_form.html'  # Plantilla del formulario de edición
+    success_url = reverse_lazy('route_list')  # Redirige a la lista de rutas después de editar
 
-class RouteInterestPlaceForm(forms.Form):
-    interest_places = ModelMultipleChoiceField(
-        queryset=InterestPlace.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=True,
-        label="Selecciona los lugares de interés para la ruta"
-    )
-
-@login_required
-def add_route(request):
-    if request.method == 'POST':
-        route_form = RouteForm(request.POST)
-        
-        if route_form.is_valid():
-            # Crear la nueva ruta
-            new_route = route_form.save(commit=False)
-            new_route.creator = request.user  # Asigna el creador de la ruta
-            new_route.save()
-
-            # Redirige a la selección de lugares de interés
-            return redirect(reverse('add_route_interest_places', args=[new_route.id]))
-    else:
-        route_form = RouteForm()
-
-    return render(request, 'add_route.html', {'route_form': route_form})
-
-@login_required
-def add_route_interest_places(request, route_id):
-    route = get_object_or_404(Route, id=route_id)
-
-    if request.method == 'POST':
-        form = RouteInterestPlaceForm(request.POST)
-        if form.is_valid():
-            interest_places = form.cleaned_data['interest_places']
-            # Asigna los lugares de interés a la ruta
-            for place in interest_places:
-                RouteInterestPlace.objects.create(route=route, interest_place=place)
-            
-            messages.success(request, 'Ruta creada con éxito y lugares de interés añadidos.')
-            return redirect('route_list')
-    else:
-        form = RouteInterestPlaceForm()
-
-    return render(request, 'add_route_interest_places.html', {'form': form, 'route': route})
+# class RouteDetailView(DetailView):
+#     model = Route
+#     template_name = 'route_detail.html'  # Plantilla que mostrará los detalles de la ruta

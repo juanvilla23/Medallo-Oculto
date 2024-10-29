@@ -31,6 +31,7 @@ urlpatterns = [
     path('views/', include('views.urls')),
     path('events/', include('events.urls')),
     path('places/', include('places.urls')),
+    path('views/', include('views.urls')),
     
     path('users/',include('users.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

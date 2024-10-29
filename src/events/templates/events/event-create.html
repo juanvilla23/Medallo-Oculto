@@ -1,3 +1,7 @@
+{% extends "templates/side_bar.html" %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +19,7 @@
         <h1>{{ event.id|default:"Create Event" }}</h1>
 
         <!-- Formulario de creación o edición de evento -->
-        <form method="POST" action="{% url 'submit_event' %}" enctype="multipart/form-data">
+        <form method="POST" action="{% if event %}{% url 'submit_event' event.id %}{% else %}{% url 'submit_event' %}{% endif %}" enctype="multipart/form-data">
             {% csrf_token %}
 
             <!-- Mostrar errores del formulario de manera general -->
@@ -39,9 +43,10 @@
             <label for="description">Add a short description:</label>
             <textarea id="description" name="description" rows="4" required>{{ form.description.value }}</textarea>
 
-            <!-- Image -->
-            <label for="image">Choose some photos for your event:</label>
-            <input type="file" id="image" name="image" accept="image/*" {% if not event.id %}required{% endif %}>
+            <!-- Images -->
+            <label for="images">Choose some photos for your event:</label>
+            <!-- Permitir múltiples archivos -->
+            <input type="file" id="images" name="images" accept="image/*" multiple {% if not event.id %}required{% endif %}>
 
             <!-- Price -->
             <label for="price">Set a price (COP):</label>
@@ -84,3 +89,5 @@
 
 </body>
 </html>
+
+{% endblock %}

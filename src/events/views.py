@@ -5,13 +5,16 @@ from django.views.generic import TemplateView, CreateView, ListView, UpdateView
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import EventForm
-from .models import Event
+from django.shortcuts import get_object_or_404
+from .models import Event, EventImage
+from cloudinary.uploader import upload
+from django.utils import timezone  # Si prefieres manejar zonas horarias locales/globales
 
 
 class CreateEventView(CreateView):
     model = Event
     template_name = 'events/event-create.html'
-    fields = ['name', 'description', 'images', 'price', 'date_and_time', 'categories', 'capacity']
+    fields = ['name', 'description', 'price', 'date_and_time', 'categories', 'capacity']
 
     def form_valid(self, form):
         form.instance.promotor = self.request.user  # Asigna automáticamente el usuario actual como promotor del evento
@@ -40,41 +43,34 @@ class EditEventView(UpdateView):
     def get_success_url(self):
         return reverse('event_success')
 
-from django.shortcuts import get_object_or_404
+
 
 def submit_event(request, event_id=None):
-    # Si existe un ID de evento, estamos editando
-    if event_id:
-        event = get_object_or_404(Event, id=event_id)  # Busca el evento o devuelve 404 si no existe
-    else:
-        event = None  # Si no hay ID, significa que es un evento nuevo
+    event = get_object_or_404(Event, id=event_id) if event_id else None
 
     if request.method == 'POST':
-        form = EventForm(request.POST, request.FILES, instance=event)  # Pasa el evento existente si estamos editando
+        form = EventForm(request.POST, request.FILES, instance=event)
         if form.is_valid():
             event = form.save(commit=False)
-            date_time_str = request.POST.get('date_and_time')
+            date_time_str = request.POST.get('date_and_time')  
             try:
+                # Convierte la cadena de fecha y hora al objeto datetime
                 event.date_and_time = datetime.strptime(date_time_str, '%d/%m/%Y %I:%M %p')
             except:
                 pass
 
-            event.promotor = User.objects.get(id=1)  # Asegúrate de ajustar esto según tu lógica de promotor
+            event.promotor = request.user
             event.save()
-            
-            if event_id:
-                messages.success(request, 'El evento se ha actualizado correctamente.')
-            else:
-                messages.success(request, 'El evento se ha creado correctamente.')
 
+            # Subir y guardar cada imagen
+            for image in request.FILES.getlist('images'):
+                uploaded_image = upload(image)
+                EventImage.objects.create(event=event, image=uploaded_image['secure_url'])
+
+            messages.success(request, 'Evento guardado correctamente.')
             return redirect(reverse('event_success'))
-        else:
-            if event_id:
-                messages.error(request, 'Hubo un error al actualizar el evento.')
-            else:
-                messages.error(request, 'Hubo un error al crear el evento.')
     else:
-        form = EventForm(instance=event)  # Prellena el formulario con los datos del evento si existe
+        form = EventForm(instance=event)
 
     return render(request, 'events/event-create.html', {'form': form, 'event': event})
 

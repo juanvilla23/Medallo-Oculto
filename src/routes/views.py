@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from django.db.models import Q
 from django.http import JsonResponse
-from .models import (InterestPlace, Route, RouteInterestPlace)
+from .models import (Route, RouteInterestPlace)
 from django.db import connection
 from django.db.models.functions import Lower
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from .models import Route
 from .forms import RouteForm
+from places.models import InterestPlace
 import re
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
@@ -102,6 +102,14 @@ def get_route_coords_by_id(request):
 
     return JsonResponse({'error': 'No id provided'}, status=400)
 
-def logout_p(request):
-    logout(request)
-    return redirect('main_route')
+class CreateRouteView(CreateView):
+    model = Route
+    form_class = RouteForm
+    template_name = 'routes/create_route.html'  
+    #fields = ['name', 'description', 'places']
+    success_url = reverse_lazy('routes_list')  
+    
+    def form_valid(self, form):
+        form.instance.creator = self.request.user
+        return super().form_valid(form)
+

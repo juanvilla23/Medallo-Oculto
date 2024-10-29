@@ -1,3 +1,7 @@
+{% extends "templates/side_bar.html" %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +30,7 @@
             </div>
             {% endif %}
 
+            <!-- Campo Name -->
             <label for="name">Name your new place:</label>
             <input type="text" id="name" name="name" value="{{ form.name.value }}" required>
             {% if form.name.errors %}
@@ -38,6 +43,7 @@
                 </div>
             {% endif %}
 
+            <!-- Campo Description -->
             <label for="description">Description:</label>
             <textarea id="description" name="description" rows="4" required>{{ form.description.value }}</textarea>
             {% if form.description.errors %}
@@ -50,6 +56,7 @@
                 </div>
             {% endif %}
 
+            <!-- Campo Address -->
             <label for="address">Address:</label>
             <input type="text" id="address" name="address" value="{{ form.address.value }}" required>
             {% if form.address.errors %}
@@ -62,37 +69,42 @@
                 </div>
             {% endif %}
 
-            <label for="categories">Choose a category:</label>
-            <select id="categories" name="categories" required>
-                
-                {% for category in form.categories.field.choices %}
-                <option value="{{ category.0 }}" {% if form.categories.value == category.0 %}selected{% endif %}>
-                    {{ category.1 }}
-                </option>
-                {% endfor %}
-            </select>
+            <!-- Campo Categories -->
+            <label for="categories">Categories (separate by commas):</label>
+            <textarea id="categories" name="categories" rows="2" required>{{ form.categories.value }}</textarea>
+            {% if form.categories.errors %}
+                <div class="field-error">
+                    <ul>
+                        {% for error in form.categories.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
 
-            <label for="Place-description">Description:</label>
-            <input type="text" id="Place-description" name="place_description" required>
+            <!-- Campo Images -->
+            <label for="images">Upload Images:</label>
+            <input type="file" id="images" name="images" multiple>
+            {% if form.images.errors %}
+                <div class="field-error">
+                    <ul>
+                        {% for error in form.images.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
 
-            <label for="Place-address">Address:</label>
-            <input type="text" id="Place-address" name="place_address" required>
-            <br>
-  
-            
-            <fieldset>
-                <legend>Choose Categories:</legend>
-                <label><input type="checkbox" name="categoria_place" value="Cultura"> Cultura</label><br>
-                <label><input type="checkbox" name="categoria_place" value="Fiesta"> Fiesta</label><br>
-                <!-- Agrega más categorías según tus necesidades -->
-            </fieldset>
-            
-
-            <label for="place-image">Upload Image:</label>
-            <input type="file" id="place-image" name="images" multiple required>
-
-            <button type="submit">Submit</button>
+            <button type="submit">
+                {% if event.id %}
+                    Save Changes
+                {% else %}
+                    Finish and send to approval
+                {% endif %}
+            </button>
         </form>
     </div>
 {% endblock%}
 
+
+{% endblock %}

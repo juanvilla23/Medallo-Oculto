@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from multiselectfield import MultiSelectField
+from cloudinary.models import CloudinaryField
 
 class Event(models.Model):
     STATUS_OPTIONS = [
@@ -19,7 +20,6 @@ class Event(models.Model):
 
     name = models.CharField(max_length=200)
     description = models.TextField(max_length=1500)
-    images = models.ImageField(upload_to='media/', blank=True, null=True)
     price = models.PositiveIntegerField(null=True, blank=True)
     date_and_time = models.DateTimeField()
     categories = MultiSelectField(choices=CATEGORY_CHOICES, max_choices=3, max_length=200)
@@ -33,3 +33,13 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def first_image(self):
+        first_image = self.images.first()  # Utiliza `self.images` para acceder al conjunto relacionado de `EventImage`
+        return first_image.image.url if first_image else None
+
+class EventImage(models.Model):
+    event = models.ForeignKey(Event, related_name='images', on_delete=models.CASCADE)
+    image = CloudinaryField('image')
+

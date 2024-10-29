@@ -1,67 +1,57 @@
-{% extends 'side_bar.html' %}
-
-{% block title %} Lugares de Interés {% endblock %}
+{% extends "templates/side_bar.html" %}
 
 {% block content %}
-  <div class="table-container">
-    <div style="margin: 25px auto;"> <h1>Lista de Lugares de Interés</h1> </div>
 
-    <table class="styled-table">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Descripción</th>
-          <th>Dirección</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for place in interest_places %}
-        <tr>
-          <td>{{ place.name }}</td>
-          <td>{{ place.description }}</td>
-          <td>{{ place.address }}</td>
-          <td>
-            <a href="{% url 'visualizarPlaces' %}" class="action-button view">Ver</a>
-            <a href="{% url 'interest_place_edit' place.pk %}" class="action-button edit">Editar</a>
-            <form action="{% url 'interest_place_delete' place.pk %}" method="post" style="display:inline;">
-              {% csrf_token %}
-              <button type="submit" class="action-button delete">Eliminar</button>
-            </form>
-          </td>
-        </tr>
-        {% empty %}
-        <tr>
-          <td colspan="4">No hay lugares de interés disponibles.</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Places</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container my-5">
+        <h1 class="mb-4">List of Places</h1>
 
-    <!-- Contenedor de paginación con botón de añadir -->
-    <div class="pagination">
-      {% if is_paginated %}
-        <span class="step-links">
-          {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; Primero</a>
-            <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
-          {% endif %}
-
-          <span class="current">
-            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
-          </span>
-
-          {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">Último &raquo;</a>
-          {% endif %}
-        </span>
-      {% endif %}
-  </div>
-
-        <!-- Botón centrado para añadir lugar de interés -->
-    <div style="text-align: center; margin-top: 20px;">
-      <a href="{% url 'Mostrar_formulario' %}" class="action-button add">Añadir Lugar de Interés</a>
+        {% if places %}
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for place in places %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <!-- Mostrar solo la primera imagen usando la propiedad first_image -->
+                            {% if place.first_image %}
+                                <img src="{{ place.first_image }}" class="card-img-top" alt="{{ place.name }} image">
+                            {% else %}
+                                <img src="{% static 'images/default_image.jpg' %}" class="card-img-top" alt="Default image">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">{{ place.name }}</h5>
+                                <p class="card-text">{{ place.description }}</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Address:</strong> {{ place.address }}</li>
+                                <li class="list-group-item"><strong>Categories:</strong> {{ place.listar_categorias }}</li>
+                            </ul>
+                            <div class="card-body text-center">
+                                <!-- Botón Edit -->
+                                <a href="{% url 'edit_place' place.id %}" class="btn btn-primary">Edit</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-muted">No upcoming places.</p>
+        {% endif %}
     </div>
-  </div> <!-- Fin del contenedor de paginación -->
+
+    <!-- Script de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
 {% endblock %}
