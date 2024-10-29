@@ -1,3 +1,7 @@
+{% extends "templates/side_bar.html" %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +13,7 @@
 </head>
 <body>
     <div class="container my-5">
-        <h1 class="mb-4">Upcoming places</h1>
+        <h1 class="mb-4">List of places</h1>
 
         <!-- Verificamos si hay placeos -->
         {% if places %}
@@ -46,3 +50,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+{% endblock %}

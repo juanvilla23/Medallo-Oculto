@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'cloudinary',
     'cloudinary_storage',
     'views',
-   
 ]
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.getenv('CLOUD_NAME'),
@@ -83,7 +82,7 @@ ROOT_URLCONF = 'MedalloOculto.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "views"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

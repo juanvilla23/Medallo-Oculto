@@ -29,6 +29,7 @@ urlpatterns = [
     path('routes/', include('routes.urls')),
     path('events/', include('events.urls')),
     path('places/', include('places.urls')),
+    path('views/', include('views.urls')),
     
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

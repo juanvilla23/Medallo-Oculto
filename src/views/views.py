@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, UpdateView, DetailView
-from routes.models import InterestPlace, Route, RouteInterestPlace
+from routes.models import  Route, RouteInterestPlace
+from places.models import InterestPlace
 from django.urls import reverse_lazy
 from django.core.paginator import Paginator
 
@@ -8,7 +9,7 @@ from django.core.paginator import Paginator
 class InterestPlaceListView(ListView):
     model = InterestPlace
     template_name = 'interest_places.html'  # Tu plantilla
-    context_object_name = 'interest_places'    # Nombre de la variable para pasar a la plantilla
+    context_object_name = 'places'    # Nombre de la variable para pasar a la plantilla
     paginate_by = 10                           # Número de elementos por página
 
 # Vista para eliminar un lugar de interés
@@ -39,7 +40,7 @@ class RouteDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Obtener los lugares de interés relacionados con la ruta
-        context['interest_places'] = RouteInterestPlace.objects.filter(route=self.object)
+        context['places'] = RouteInterestPlace.objects.filter(route=self.object)
         return context
 
 # Vista para listar las rutas con paginación
@@ -61,6 +62,3 @@ class RouteUpdateView(UpdateView):
     template_name = 'route_form.html'  # Plantilla del formulario de edición
     success_url = reverse_lazy('route_list')  # Redirige a la lista de rutas después de editar
 
-# class RouteDetailView(DetailView):
-#     model = Route
-#     template_name = 'route_detail.html'  # Plantilla que mostrará los detalles de la ruta

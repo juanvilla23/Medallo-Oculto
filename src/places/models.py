@@ -5,25 +5,26 @@ from multiselectfield import MultiSelectField
 
 class InterestPlace(models.Model):
 
-    CATEGORY_CHOICES = [
+    """CATEGORY_CHOICES = [
         ('culture', 'Culture'),
         ('Film', 'Movies and cinema'),
         ('Art', 'Art'),
         ('Technology', 'Technology'),
         ('Business', 'Business'),
      ]
+    """
 
     name = models.CharField(max_length=200)
     description = models.TextField()
-    categories = MultiSelectField(choices=CATEGORY_CHOICES, max_choices=3, max_length=200)
+    categories = ArrayField(models.CharField(max_length=200), blank=True, null=True)
     #categories= models.CharField(max_length=200,null=True)
     #rating = models.DecimalField(max_digits=3, decimal_places=2)
-    #latitude = models.DecimalField(max_digits=9, decimal_places=6)
-    #longitude = models.DecimalField(max_digits=9, decimal_places=6)
-    images = models.ImageField(upload_to='media/', blank=True, null=True)
+    status = models.BooleanField(default=True)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6)
+    images = ArrayField(models.CharField(max_length=600), blank=True, null=True)
     address=models.CharField(max_length=200,default="Dirección desconocida")
     
-
     class Meta:
         db_table = 'interest_place'
 
@@ -37,7 +38,7 @@ class InterestPlace(models.Model):
         return None
     @property
     def listar_categorias(self):
-        lista="Categories: "
+        lista=""
         max=len(self.categories)-1
         for  i in range(len(self.categories)):
             if i!=max:

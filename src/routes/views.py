@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from django.db.models import Q
 from django.http import JsonResponse
-from .models import (InterestPlace, Route, RouteInterestPlace)
+from .models import (Route, RouteInterestPlace)
 from django.db import connection
 from django.db.models.functions import Lower
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from .models import Route
 from .forms import RouteForm
+from places.models import InterestPlace
 import re
 
 # Create your views here.
@@ -105,7 +105,7 @@ class CreateRouteView(CreateView):
     form_class = RouteForm
     template_name = 'routes/create_route.html'  
     #fields = ['name', 'description', 'places']
-    success_url = reverse_lazy('routes-list')  
+    success_url = reverse_lazy('routes_list')  
     
     def form_valid(self, form):
         form.instance.creator = self.request.user
