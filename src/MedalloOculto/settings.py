@@ -86,6 +86,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.static',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -156,10 +157,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'routes/images'), os.path.join(BASE_DIR, 'routes/js'), os.path.join(BASE_DIR, 'routes/css'), os.path.join(BASE_DIR, 'routes/external/contextmenu'), \
-                    os.path.join(BASE_DIR, 'routes/external/easybutton'), os.path.join(BASE_DIR, 'routes/external/clickmenu'), os.path.join(BASE_DIR, 'views/css'), os.path.join(BASE_DIR, 'views/js')]
+STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static'), os.path.join(BASE_DIR, 'routes/images'), os.path.join(BASE_DIR, 'routes/js'), os.path.join(BASE_DIR, 'routes/css'), os.path.join(BASE_DIR, 'routes/external/contextmenu'), \
+                    os.path.join(BASE_DIR, 'routes/external/easybutton'), os.path.join(BASE_DIR, 'routes/external/clickmenu'), os.path.join(BASE_DIR, 'views/css'), os.path.join(BASE_DIR, 'views/js'),
+                    os.path.join(BASE_DIR, 'users/js'), os.path.join(BASE_DIR, 'users/fonts'), os.path.join(BASE_DIR, 'users/scss'), os.path.join(BASE_DIR, 'users/css'),]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 

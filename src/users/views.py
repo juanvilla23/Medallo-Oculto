@@ -24,9 +24,12 @@ def inicio_sesion(request):
                 login(request, user) #se guarda la informacion en login 
                 return redirect('mostrar_perfil')  # Redirige a la página de inicio
             else:
-                return HttpResponse('El usuario no esta activo')
+                error="El usuario no esta activo "
+                return render(request, 'Inicio.html', {'error': error})
         else:
-            return HttpResponse ('El usuario no esta en la base de datos')
+            error="Usuario y contraseña incorrectos "
+            return render(request, 'Inicio.html', {'error': error})
+            
 
     # Si la solicitud no es POST, muestra el formulario vacío
     return render(request, 'register.html')
@@ -42,8 +45,8 @@ def crear_cuenta(request):
         tipo_usuario=request.POST.get('tipo_usuario')
         password = request.POST.get('password')
         password2= request.POST.get('confirm_password')
-        print(password)
-        print(password2)
+        print(f"password: {password}")
+        print(f"password2: {password2}")
 
         if password!=password2:
             error="Contraseñas diferentes"
