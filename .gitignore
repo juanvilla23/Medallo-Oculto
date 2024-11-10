@@ -141,3 +141,4 @@ notas.txt
 *osrm*
 *osm*
 migrations/
+env.sh
