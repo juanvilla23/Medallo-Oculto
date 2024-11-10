@@ -1,0 +1,198 @@
+{% extends "side_bar.html" %}
+{% load custom_filters %}
+
+
+{% block head %} 
+    <style>
+        /* Asegura que html y body ocupen toda la pantalla */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Ajusta el contenedor principal de la sección */
+        #home-section-vel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* Contenedor del formulario */
+        #form-container-vel {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        /* Encabezado del formulario */
+        #form-header-vel {
+            background-color: white;
+            padding: 20px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        #form-title-vel {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        /* Cuerpo del formulario */
+        #form-body-vel {
+            padding: 30px;
+        }
+
+        #form-body-vel label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        #form-body-vel input[type="text"],
+        #form-body-vel textarea,
+        #form-body-vel input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        #form-body-vel input[type="text"]:focus,
+        #form-body-vel textarea:focus,
+        #form-body-vel input[type="file"]:focus {
+            outline: none;
+            border-color: #007BFF;
+        }
+
+        #submit-button-vel {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        #submit-button-vel:hover {
+            background-color: #0056b3;
+        }
+
+        #cancel-button-vel {
+            background-color: #ccc;
+            color: black;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+
+        #cancel-button-vel:hover {
+            background-color: #aaa;
+        }
+
+        .current-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .current-images img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .remove-image-btn-vel {
+            display: block;
+            color: red;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div id="home-section-vel">
+        <div id="form-container-vel">
+            <!-- Encabezado blanco -->
+            <div id="form-header-vel">
+                <h1 id="form-title-vel">Editar Lugar de Interés</h1>
+            </div>
+            
+            <!-- Contenido del formulario -->
+            <div id="form-body-vel">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div id="message-alert-vel" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %} 
+
+                    <label for="id_name-vel">Nombre</label>
+                    {{ form.name }}
+
+                    <label for="id_description-vel">Descripción</label>
+                    {{ form.description }}
+
+                    <label for="id_categories-vel">Categorías</label>
+                    {{ form.categories }}
+
+                    <label for="id_latitude-vel">Latitud</label>
+                    {{ form.latitude }}
+
+                    <label for="id_longitude-vel">Longitud</label>
+                    {{ form.longitude }}
+
+                    <label for="id_address-vel">Dirección</label>
+                    {{ form.address }}
+
+                    <label>Imágenes Actuales</label>
+                    <div class="current-images">
+                        {% for image_url in form.instance.images %}
+                            {% with image_url|cut:'http://res.cloudinary.com/ddk5qtfdb/image/upload/' as public_id_full %}
+                                {% with public_id_full|cut:".jpg" as public_id %}
+                                    <div>
+                                        <img src="{{ image_url }}" alt="Imagen actual">
+                                        <a class="remove-image-btn-vel" href="{% url 'remove_image' pk=form.instance.id public_id=public_id %}">Eliminar</a>
+                                    </div>
+                                {% endwith %}
+                            {% endwith %}
+                        {% endfor %}
+                    </div>
+
+                    <label for="new_images-vel">Subir Nuevas Imágenes</label>
+                    <input type="file" name="images" multiple>
+
+                    <button id="submit-button-vel" type="submit">Guardar</button>
+                    <a href="{% url 'interest_place_list' %}" id="cancel-button-vel">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -76,18 +76,20 @@ body {
 
 /* Estilo de la paginación */
 .pagination {
-    text-align: center;
-    margin: 20px 0;
-    margin-bottom: 2%;
+    display: flex;
+    justify-content: center;
+    gap: 5px; /* Espacio entre botones */
+    margin: 20px auto; /* Centra verticalmente dentro del contenedor */
+    padding: 10px;
 }
 
-.pagination a {
+.pagination a,
+.pagination .current {
     color: #009879;
     padding: 8px 16px;
     text-decoration: none;
     border: 1px solid #dddddd;
     border-radius: 5px;
-    margin: 0 2px;
 }
 
 .pagination a:hover {
@@ -95,9 +97,22 @@ body {
 }
 
 .pagination .current {
-    padding: 8px 16px;
     background-color: #009879;
     color: white;
+}
+
+
+
+
+.action-button.add {
+    background-color: #28a745; /* Color verde para el botón añadir */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
     border-radius: 5px;
-    margin: 0 2px;
+    font-size: 16px;
+}
+
+.action-button.add:hover {
+    background-color: #218838; /* Color más oscuro en hover */
 }

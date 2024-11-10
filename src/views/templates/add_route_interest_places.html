@@ -1,0 +1,104 @@
+{% extends "side_bar.html" %}
+
+{% block head %} 
+    <style>
+        /* Asegura que html y body ocupen toda la pantalla */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Ajusta el contenedor principal de la sección */
+        #home-section-places {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* Contenedor del formulario */
+        #form-container-places {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        /* Encabezado del formulario */
+        #form-header-places {
+            background-color: white;
+            padding: 20px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        #form-title-places {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        /* Cuerpo del formulario */
+        #form-body-places {
+            padding: 30px;
+        }
+
+        #form-body-places label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        #form-body-places button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        #form-body-places button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilo para la lista de lugares */
+        #places-list {
+            text-align: left;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div id="home-section-places">
+        <div id="form-container-places">
+            <!-- Encabezado blanco -->
+            <div id="form-header-places">
+                <h1 id="form-title-places">Añadir Lugares a la Ruta: {{ route.name }}</h1>
+            </div>
+            
+            <!-- Contenido del formulario -->
+            <div id="form-body-places">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div id="places-list">
+                        {{ form.as_p }}
+                    </div>
+                    <button type="submit">Añadir Lugares de Interés</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

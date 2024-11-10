@@ -61,10 +61,11 @@
                                 Lugar de interes
                             </a>
                         </div>
-
-                        <button id="login-button">Registrarse</button>
-                        <button id="sign-in-button">Iniciar Sesión</button>
-
+                        
+                        <!-- Temporal mientras camilo agrega la vista de ver perfil-->
+                        <button id="profile-button" onclick="window.location.href='{% url 'route_list' %}'">Mi Perfil</button>
+                        <button id="login-button" onclick="window.location.href='{% url 'crear_cuenta_form' %}'">Registrarse</button>
+                        <button id="sign-in-button" onclick="window.location.href='{% url 'mostrar_formulario_Inicio' %}'">Iniciar Sesión</button>         
                     </div>
 
                 </div>

@@ -20,7 +20,7 @@
           <td>
             <a href="{% url 'route_view' route.pk %}" class="action-button view">Ver</a>
             <!-- <a href="{% url 'route_edit' route.pk %}" class="action-button edit">Editar</a> -->
-            <a href="#" class="action-button edit">Editar</a>
+            <a href="{% url 'route_edit' route.pk %}" class="action-button edit">Editar</a>
             <form action="{% url 'route_delete' route.pk %}" method="post" style="display:inline;">
               {% csrf_token %}
               <button type="submit" class="action-button delete">Eliminar</button>
@@ -54,5 +54,10 @@
         </span>
       {% endif %}
     </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+      <a href="{% url 'add_route' %}" class="action-button add">Añadir Lugar de Interés</a>
+    </div>
+
   </div>
 {% endblock %}
