@@ -1,0 +1,130 @@
+{% extends "side_bar.html" %}
+
+{% block head %}
+    <style>
+        /* Estilos similares a los de la plantilla que proporcionaste */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #home-section-route-edit {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        #form-container-route-edit {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        #form-header-route-edit {
+            background-color: white;
+            padding: 20px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        #form-title-route-edit {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        #form-body-route-edit {
+            padding: 30px;
+        }
+
+        #form-body-route-edit label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        #form-body-route-edit input[type="text"],
+        #form-body-route-edit textarea,
+        #form-body-route-edit button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        #submit-button-route-edit {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        #submit-button-route-edit:hover {
+            background-color: #0056b3;
+        }
+
+        #places-list {
+            text-align: left;
+            padding: 15px 0;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div id="home-section-route-edit">
+        <div id="form-container-route-edit">
+            <div id="form-header-route-edit">
+                <h1 id="form-title-route-edit">Editar Ruta</h1>
+            </div>
+
+            <div id="form-body-route-edit">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <label for="Route-name">Nombre de la Ruta:</label>
+                    <input type="text" id="Route-name" name="name" value="{{ route.name }}" required>
+
+                    <label for="Route-description">Descripción:</label>
+                    <textarea id="Route-description" name="description" required>{{ route.description }}</textarea>
+
+                    <fieldset id="places-list">
+                        <legend>Selecciona los lugares de interés para esta ruta:</legend>
+                        {% for place in interest_places %}
+                            <label>
+                                <input type="checkbox" name="interest_places" value="{{ place.id }}" {% if place in route_interest_places %}checked{% endif %}>
+                                {{ place.name }}
+                            </label><br>
+                        {% endfor %}
+                    </fieldset>
+
+                    <button id="submit-button-route-edit" type="submit">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends "side_bar.html" %}
+
+{% block head %} 
+    <style>
+        /* Asegura que html y body ocupen toda la pantalla */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Ajusta el contenedor principal de la sección */
+        #home-section-route {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* Contenedor del formulario */
+        #form-container-route {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        /* Encabezado del formulario */
+        #form-header-route {
+            background-color: white;
+            padding: 20px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        #form-title-route {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        /* Cuerpo del formulario */
+        #form-body-route {
+            padding: 30px;
+        }
+
+        #form-body-route label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        #form-body-route input[type="text"],
+        #form-body-route textarea,
+        #form-body-route button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        #form-body-route input[type="text"]:focus,
+        #form-body-route textarea:focus {
+            outline: none;
+            border-color: #007BFF;
+        }
+
+        #submit-button-route {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        #submit-button-route:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div id="home-section-route">
+        <div id="form-container-route">
+            <!-- Encabezado blanco -->
+            <div id="form-header-route">
+                <h1 id="form-title-route">Crear Nueva Ruta</h1>
+            </div>
+            
+            <!-- Contenido del formulario -->
+            <div id="form-body-route">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="POST">
+                    {% csrf_token %} 
+
+                    <label for="Route-name">Nombre de la Ruta:</label>
+                    <input type="text" id="Route-name" name="name" required>
+
+                    <label for="Route-description">Descripción:</label>
+                    <textarea id="Route-description" name="description" required></textarea>
+
+                    <button id="submit-button-route" type="submit">Crear Ruta</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -5,12 +5,16 @@ from cloudinary.uploader import upload
 import requests 
 from django.contrib import messages
 import os
+from django.contrib.auth.decorators import login_required
 import json
 
 from django.http import JsonResponse
 
+@login_required(login_url='inicio_sesion')
 def Mostrar_formulario(request):
     return render(request,'Formulario_agregar_lugares.html')
+
+@login_required(login_url='inicio_sesion')
 def add_place(request):
     
     nameF=request.POST['place_name']
@@ -61,7 +65,7 @@ def add_place(request):
    
     
     place=InterestPlace.objects.create(name=nameF, description=descriptionF,categories=categoriaF,
-                                       status=False, latitude=latitudF,longitude=longitudF,images=image_urls,address=addressF)
+                                       status=False, latitude=latitudF,longitude=longitudF,images=image_urls,address=addressF,creator=request.user)
     return redirect("/Visualizar")
 
 def visualizarPlaces(request):

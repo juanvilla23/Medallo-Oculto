@@ -72,7 +72,8 @@ def crear_cuenta(request):
                 return redirect('mostrar_formulario_Inicio')
     else:            
         return render(request, 'formCrearCuenta.html')
-@login_required
+
+@login_required(login_url='mostrar_formulario_Inicio')
 def mostar_perfil(request):
     # Obtén el usuario autenticado
     usuario = request.user

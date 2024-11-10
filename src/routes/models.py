@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+from django.contrib.auth.models import User
 
 class InterestPlace(models.Model):
     name = models.CharField(max_length=200)
@@ -12,6 +13,7 @@ class InterestPlace(models.Model):
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
     images = ArrayField(models.CharField(max_length=600), blank=True, null=True)
     address=models.CharField(max_length=200,default="Dirección desconocida")
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
     
 
     class Meta:
@@ -41,6 +43,8 @@ class InterestPlace(models.Model):
 class Route(models.Model):
     #creator = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.TextField()
     #rating = models.DecimalField(max_digits=3, decimal_places=2)
     #comments = models.TextField()
 

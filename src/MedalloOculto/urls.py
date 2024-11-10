@@ -24,6 +24,7 @@ from places import views as PlaceViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('routes.urls')),
     path('tests/', include('tests.urls')),
     path('routes/', include('routes.urls')),
     path('views/', include('views.urls')),

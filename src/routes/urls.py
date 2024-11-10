@@ -6,5 +6,6 @@ urlpatterns = [
     path('get-markers/', views.get_markers, name='get_markers'),
     path('search/', views.search, name='search'),
     path('get_coords_by_id/', views.get_coords_by_id, name='get_coords_by_id'),
-    path('get_route_coords_by_id/', views.get_route_coords_by_id, name='get_route_coords_by_id')
+    path('get_route_coords_by_id/', views.get_route_coords_by_id, name='get_route_coords_by_id'),
+    path('logout/', views.logout_p, name='logout_p'),
 ]

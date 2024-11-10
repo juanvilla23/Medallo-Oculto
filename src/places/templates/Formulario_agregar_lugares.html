@@ -1,33 +1,64 @@
+{% extends "side_bar.html" %}
 
-{% extends "./BasePlaces.html" %}
-{%block head %} 
+{% block head %} 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-image: url('background-image.png'); /* Puedes cambiar esto por la imagen de fondo que prefieras */
-            background-size: cover;
+        /* Asegura que html y body ocupen toda la pantalla */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Ajusta el contenedor principal de la sección */
+        #home-section-vlt {
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
+            align-items: center; /* Centra verticalmente */
+            padding: 40px 20px;
+            background-color: #f0f2f5;
+            min-height: 100vh; /* Asegura que ocupa toda la altura de la ventana */
+            box-sizing: border-box;
+        }
+
+        /* Contenedor del formulario */
+        #form-container-vlt {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px; /* Ajusta el ancho máximo del formulario */
+            text-align: center;
+            margin: auto;
+            overflow: hidden; /* Evita que el contenido sobresalga del borde */
+        }
+
+        /* Encabezado del formulario (sin fondo gris) */
+        #form-header-vlt {
+            background-color: white; /* Fondo blanco, igual al del cuerpo */
+            padding: 20px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        #form-title-vlt {
+            font-size: 2rem;
             margin: 0;
         }
 
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: center;
+        /* Cuerpo del formulario */
+        #form-body-vlt {
+            padding: 30px;
         }
 
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 20px;
+        #form-body-vlt label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+            text-align: left;
         }
 
-        input[type="text"], input[type="file"], button {
+        #form-body-vlt input[type="text"], #form-body-vlt input[type="file"], #form-body-vlt button {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -36,63 +67,83 @@
             font-size: 1rem;
         }
 
-        input[type="text"]:focus {
+        #form-body-vlt input[type="text"]:focus, #form-body-vlt input[type="file"]:focus {
             outline: none;
             border-color: #007BFF;
         }
 
-        button {
+        #submit-button-vlt {
             background-color: #007BFF;
             color: white;
             border: none;
             cursor: pointer;
+            font-size: 1rem;
         }
 
-        button:hover {
+        #submit-button-vlt:hover {
             background-color: #0056b3;
         }
+
+        /* Ajuste del fieldset para categorías */
+        #category-fieldset-vlt {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+            margin-top: 5px;
+        }
+
+        #category-legend-vlt {
+            font-weight: bold;
+        }
     </style>
-{%endblock%}
-{% block body %}
-    
+{% endblock %}
 
-
-    <div class="container">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
-        {% endif %}
-        <h1>New Place</h1>
-        <form method="POST" action="/add_place/" enctype="multipart/form-data">
-            {% csrf_token %} 
-            <label for="Place-name">Name your new place:</label>
-            <input type="text" id="Place-name" name="place_name" required >
-
-            <label for="Place-description">Description:</label>
-            <input type="text" id="Place-description" name="place_description" required>
-
-            <label for="Place-address">Address:</label>
-            <input type="text" id="Place-address" name="place_address" required>
-            <br>
-  
+{% block content %}
+    <div id="home-section-vlt">
+        <div id="form-container-vlt">
+            <!-- Encabezado blanco -->
+            <div id="form-header-vlt">
+                <h1 id="form-title-vlt">New Place</h1>
+            </div>
             
-            <fieldset>
-                <legend>Choose Categories:</legend>
-                <label><input type="checkbox" name="categoria_place" value="Cultura"> Cultura</label><br>
-                <label><input type="checkbox" name="categoria_place" value="Fiesta"> Fiesta</label><br>
-                <!-- Agrega más categorías según tus necesidades -->
-            </fieldset>
-            
+            <!-- Contenido del formulario -->
+            <div id="form-body-vlt">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div id="message-alert-vlt" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
 
-            <label for="place-image">Upload Image:</label>
-            <input type="file" id="place-image" name="images" multiple required>
+                <form method="POST" action="/add_place/" enctype="multipart/form-data">
+                    {% csrf_token %} 
 
-            <button type="submit">Submit</button>
-        </form>
+                    <label for="Place-name-vlt">Name your new place:</label>
+                    <input type="text" id="Place-name-vlt" name="place_name" required>
+
+                    <label for="Place-description-vlt">Description:</label>
+                    <input type="text" id="Place-description-vlt" name="place_description" required>
+
+                    <label for="Place-address-vlt">Address:</label>
+                    <input type="text" id="Place-address-vlt" name="place_address" required>
+
+                    <fieldset id="category-fieldset-vlt">
+                        <legend id="category-legend-vlt">Choose Categories:</legend>
+                        <label><input type="checkbox" name="categoria_place" value="Cultura"> Cultura</label><br>
+                        <label><input type="checkbox" name="categoria_place" value="Fiesta"> Fiesta</label><br>
+                        <label><input type="checkbox" name="categoria_place" value="Fiesta"> Recreativo</label><br>
+                        <!-- Agrega más categorías según tus necesidades -->
+                    </fieldset>
+
+                    <label for="place-image-vlt">Upload Image:</label>
+                    <input type="file" id="place-image-vlt" name="images" multiple required>
+
+                    <button id="submit-button-vlt" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
     </div>
-{% endblock%}
-
+{% endblock %}

@@ -111,6 +111,19 @@ html, body {
     min-width: 100px; /* Define una anchura mínima para hacerlos más largos */
 }
 
+#profile-button {
+    background-color: #0081a7;
+    border: none;
+    padding: 8px 30px; /* Reduce la altura y aumenta la longitud */
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    margin-right: 15px; /* Aumenta el espacio entre botones */
+    font-size: 16px; /* Ajusta el tamaño de la fuente */
+    height: 40px; /* Ajusta la altura total */
+    min-width: 100px; /* Define una anchura mínima para hacerlos más largos */
+}
+
 #menu-button {
     background-color: #0081a7;
     border: none;

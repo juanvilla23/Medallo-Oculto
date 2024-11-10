@@ -5,6 +5,8 @@ from .models import (InterestPlace, Route, RouteInterestPlace)
 from django.db import connection
 from django.db.models.functions import Lower
 import re
+from django.shortcuts import render, redirect
+from django.contrib.auth import logout
 
 # Create your views here.
 def main_route(request):
@@ -47,7 +49,7 @@ def search(request):
                 WHERE unaccent(lower(name)) LIKE unaccent(lower(%s))
                 LIMIT 5
             ''', [f'%{normalized_query}%'])
-            results = [{'name': route.name, 'id': route.id} for route in routes]
+            results = [{'name': route.name, 'id': route.id, 'description': route.description} for route in routes]
 
         elif query2 == 'place':
             # Utilizamos SQL sin procesar para aplicar unaccent en 'name' y 'description'
@@ -95,3 +97,7 @@ def get_route_coords_by_id(request):
             return JsonResponse({'error': 'Route not found'}, status=404)
 
     return JsonResponse({'error': 'No id provided'}, status=400)
+
+def logout_p(request):
+    logout(request)
+    return redirect('main_route')
