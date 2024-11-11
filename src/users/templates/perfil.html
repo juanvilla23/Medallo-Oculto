@@ -1,28 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "templates/side_bar.html" %}
+
+{% block content %}
+
+<html style="font-size: 16px;">
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil del Usuario</title>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Digital ID, Card Profile Overview and Features, Information Card, ID Credentials, Identity Card, ID Badge, Ultimate Guide to Card Profile, Data Card, User Profile">
+    <meta name="description" content="">
+    <title>Informacion Basica</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #0e155a; /* Fondo gris oscuro */
+            color: #fff; /* Texto en blanco */
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        p {
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #fff;
+            overflow: hidden;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .profile-image img {
+            width: 100%;
+            height: auto;
+        }
+        .card {
+            background-color: #000; /* Fondo negro */
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        .card p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #ccc; /* Texto en gris claro */
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .social-icons a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+    </style>
 </head>
 <body>
-    <h1>Perfil del Usuario</h1>
+    {% load static %}
+
+<div class="container">
+    <h1><strong>  Bienvenido a Medallo Oculto </strong> {{ usuario.username }}<h1>
     
-    <h2>Información Básica</h2>
-    <p><strong>Nombre de Usuario:</strong> {{ usuario.username }}</p>
-    <p><strong>Tipo de Perfil:</strong> {{ datos_usuario.tipo }}</p>
-    <p><strong>ID:</strong> {{ datos_usuario.id }}</p>
+
+    <div class="profile-image">
+        <img src="{% static 'images/Viajero.jpg' %}" alt="Profile Image">
+    </div>
+
+    <div class="card">
+        <h3><strong>  Perfil: </strong>  {{datos_usuario.tipo}} <h3>
+        {%if es_promotor%}
+            <p> Eres más que un simple guía; eres el guardián de lo desconocido. Aquí, en Medallo Oculto, tu misión es revelar a los valientes lo que permanece en las sombras de esta ciudad. No hablamos de eventos y lugares comunes; tu labor es mostrar la Medellín que pocos conocen, la que late en la oscuridad y en la clandestinidad. Festivales secretos, lugares con historia siniestra, rincones llenos de misterio… tú decides qué sale a la luz.</p>
+        {%elif es_turista%}
+            <p> No estás aquí para ver lo que todos ven. Medellín guarda secretos que no aparecen en las guías turísticas y tú has sido invitado a descubrirlos. Como viajero en esta misión, tu tarea es adentrarte en el lado desconocido de la ciudad. Entre sus calles y murales, entre sus luces y sombras, Medallo Oculto te espera con lugares que te harán sentir que estás en un universo paralelo. </p>
+        {% endif %}
+    </div>
+
     
-    <!-- Información específica para Promotores o Turistas -->
-    {% if es_promotor %}
-        <h2>Información del Promotor</h2>
-        
-    {% elif es_turista %}
-        <h2>Información del Turista</h2>
-    {% else %}
-        <p>No se encontró información adicional.</p>
-    {% endif %}
-    
-    <a href="">Cerrar Sesión</a>
+</div>
+
 </body>
 </html>
+{% endblock %}
