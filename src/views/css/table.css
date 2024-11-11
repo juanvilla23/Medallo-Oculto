@@ -1,5 +1,5 @@
 body {
-    background-color: #f3f3f3; /* Fondo gris claro para toda la página */
+    background-color: #1b1212; /* Fondo gris claro para toda la página */
     margin: 0;
     padding: 0;
 }
@@ -42,7 +42,7 @@ body {
 }
 
 .styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
+    border-bottom: 2px solid #01201a;
 }
 
 /* Botones de acción */
