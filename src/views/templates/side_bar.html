@@ -33,18 +33,39 @@
           <span class="links_name">Rutas</span>
         </a>
       </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-calendar'></i>
-          <span class="links_name">Eventos</span>
-        </a>
-      </li>
+
+      
+
       <li>
         <a href="{% url 'interest_place_list' %}">
           <i class='bx bx-building'></i>
           <span class="links_name">Lugares de Interés</span>
         </a>
       </li>
+
+      <li>
+        <a href="{% url 'events_list' %}">
+          <i class='bx bx-calendar'></i>
+          <span class="links_name"> Visualizar Eventos</span>
+        </a>
+      </li>
+
+     
+      <li>
+        <a href="{% url 'event_create' %}">
+          <i class='bx bx-calendar'></i>
+          <span class="links_name">Crear Evento</span>
+        </a>
+      </li>
+
+      <li>
+        <a href="{% url 'main_route' %}">
+          <i class='bx bx-calendar'></i>
+          <span class="links_name"> Mapa</span>
+        </a>
+      </li>
+      
+
       <li class="profile">
         <button id="log_out_btn" onclick="window.location.href='{% url 'logout_p' %}'">
           <i class='bx bx-log-out' id="log_out"></i>

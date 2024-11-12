@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'cloudinary',
     'cloudinary_storage',
     'views',
-    'users'
+    'users',
+    'events'
    
 ]
 CLOUDINARY_STORAGE = {
@@ -91,6 +92,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'events.context_processors.user_events',
             ],
         },
     },

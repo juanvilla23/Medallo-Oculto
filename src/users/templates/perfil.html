@@ -101,9 +101,11 @@
     <div class="card">
         <h3><strong>Perfil:</strong> {{ datos_usuario.tipo }}</h3>
         {% if es_promotor %}
-            <p>No estás aquí para ver lo que todos ven. Medellín guarda secretos que no aparecen en las guías turísticas y tú has sido invitado a descubrirlos. Como viajero en esta misión, tu tarea es adentrarte en el lado desconocido de la ciudad. Entre sus calles y murales, entre sus luces y sombras, Medallo Oculto te espera con lugares que te harán sentir que estás en un universo paralelo.</p>
-        {% elif es_turista %}
             <p>Eres más que un simple guía; eres el guardián de lo desconocido. Aquí, en Medallo Oculto, tu misión es revelar a los valientes lo que permanece en las sombras de esta ciudad. No hablamos de eventos y lugares comunes; tu labor es mostrar la Medellín que pocos conocen, la que late en la oscuridad y en la clandestinidad. Festivales secretos, lugares con historia siniestra, rincones llenos de misterio… tú decides qué sale a la luz.</p>
+            
+        {% elif es_turista %}
+            <p>No estás aquí para ver lo que todos ven. Medellín guarda secretos que no aparecen en las guías turísticas y tú has sido invitado a descubrirlos. Como viajero en esta misión, tu tarea es adentrarte en el lado desconocido de la ciudad. Entre sus calles y murales, entre sus luces y sombras, Medallo Oculto te espera con lugares que te harán sentir que estás en un universo paralelo.</p>
+           
         {% endif %}
         
     </div>

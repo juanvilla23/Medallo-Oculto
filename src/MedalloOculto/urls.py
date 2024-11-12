@@ -32,4 +32,5 @@ urlpatterns = [
     path('add_place/',PlaceViews.add_place,name='add_place'),
     path('Visualizar/',PlaceViews.visualizarPlaces,name='visualizarPlaces'),
     path('users/',include('users.urls')),
+    path('events/', include('events.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,0 +1,57 @@
+{% extends "side_bar.html" %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Events</title>
+    <!-- Enlace a Bootstrap para mejorar el estilo -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">Upcoming Events</h1>
+
+        <!-- Verificamos si hay eventos -->
+        {% if events2%}
+            <div class="row">
+                <!-- Iteramos sobre los eventos -->
+                {% for event in events2 %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <!-- Mostrar solo la primera imagen -->
+                            
+                            {% for image in event.images.all %}
+                               
+                                 <img src="{{ image.image }}" class="card-img-top" alt="{{ event.name }} image">
+                                
+                            {% endfor %}
+                                
+
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ event.name }}</h5>
+                                    <p class="card-text">{{ event.description }}</p>
+                                    <p><strong>Date:</strong> {{ event.date_and_time }}</p>
+                                    <p><strong>Address:</strong> {{ event.address }}</p>
+                                    <a href="{% url 'edit_event' event.id %}" class="btn btn-primary">Edit</a>
+                                </div>
+                          
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <!-- Si no hay eventos, mostramos un mensaje -->
+            <p class="text-muted">No upcoming events.</p>
+        {% endif %}
+    </div>
+
+    <!-- Enlace al script de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+{% endblock %}
